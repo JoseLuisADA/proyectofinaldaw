@@ -1,1 +1,0 @@
-Las notas serán almacenadas en este directorio
