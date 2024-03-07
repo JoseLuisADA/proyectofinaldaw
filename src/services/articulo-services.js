@@ -2,10 +2,9 @@ import * as fs from "fs";
 import path from "path";
 import Nota from "../models/notaModelo.js";
 
-export function crearNota(nombreArchivo, contenido) {
-    const nota = new Nota(nombreArchivo, contenido);
-    const filePath = path.join("./notas", `${nota.nombreArchivo}.note`);
-    fs.writeFileSync(filePath, nota.contenido);
+export function crearArticulo(nombreArchivo, contenido) {
+    const articulo = new Articulo(nombreArchivo, contenido);
+
 }
 
 export function leerNota(nombreArchivo) {

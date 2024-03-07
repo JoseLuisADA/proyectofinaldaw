@@ -1,5 +1,5 @@
 import express from 'express';
-import notasRouter from './notasRutas.js';
+import articuloRouter from './articuloRutas.js';
 import authRoutes from './authRutas.js';
 import { authenticateToken } from '../middlewares/auth-middleware.js';
 

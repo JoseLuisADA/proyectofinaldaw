@@ -1,5 +1,5 @@
 import express from 'express';
-import * as controladorNotas from '../controllers/notas-controlador.js';
+import * as articuloControlador from '../controllers/articulo-controlador.js';
 
 
 const router = express.Router();

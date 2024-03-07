@@ -1,4 +1,4 @@
-import * as servicioNotas from "../services/notes-services.js";
+import * as servicioNotas from "../services/articulo-services.js";
 
   export function crearNota(req, res, next) {
     try{
