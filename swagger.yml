@@ -1,17 +1,17 @@
 swagger: '2.0'
 info:
-  description: Aplicación de notas
-  version: "1.0.0"
-  title: Notas
-
+  description: Foro de Sistale API para desarrolladores
+  version: 1.0.0
+  title: Foro de Sistale API
 host: localhost:3000
 basePath: /
 schemes:
   - http
-
 paths:
   /login:
     post:
+      tags:
+        - "Cuentas"
       summary: Autenticación de usuario
       description: Permite a un usuario autenticarse en la aplicación.
       consumes:
@@ -35,30 +35,12 @@ paths:
           description: Autenticación exitosa
         '401':
           description: Credenciales inválidas
-
-  /notas:
-    get:
-      summary: Listar todas las notas
-      description: Recupera todas las notas disponibles.
-      produces:
-        - application/json
-      parameters:
-        - name: authorization
-          in: header
-          required: true
-          type: string
-          description: Token de acceso
-      responses:
-        '200':
-          description: Notas listadas exitosamente
-        '403':
-          description: Token incorrecto
-        '404':
-          description: No se encontraron notas
-
+  /articulo:
     post:
-      summary: Crear una nueva nota
-      description: Permite la creación de una nueva nota.
+      tags:
+        - "Articulo"
+      summary: Crear un nuevo artículo
+      description: Permite la creación de un nuevo artículo.
       consumes:
         - application/json
       produces:
@@ -70,26 +52,27 @@ paths:
           type: string
           description: Token de acceso
         - in: body
-          name: nota
-          description: Datos de la nueva nota
+          name: articulo
+          description: Datos del nuevo articulo
           required: true
           schema:
             type: object
             properties:
-              nombreArchivo:
+              titulo:
                 type: string
               contenido:
                 type: string
       responses:
         '201':
-          description: Nota creada exitosamente
+          description: Articulo creado exitosamente
         '400':
           description: Datos inválidos
-
-  /notas/{nombreArchivo}:
+  /articulo/{_idArticulo}:
     get:
-      summary: Leer una nota específica
-      description: Obtiene los detalles de una nota específica.
+      tags:
+          - "Articulo"
+      summary: Leer un artículo específico
+      description: Obtiene los detalles de un artículo específico.
       produces:
         - application/json
       parameters:
@@ -98,19 +81,20 @@ paths:
           required: true
           type: string
           description: Token de acceso
-        - name: nombreArchivo
+        - name: _idArticulo
           in: path
           required: true
-          type: string
+          type: integer
       responses:
         '200':
-          description: Nota encontrada
+          description: Articulo encontrado
         '404':
-          description: Nota no encontrada
-
+          description: Articulo no encontrado
     patch:
-      summary: Editar una nota existente
-      description: Permite editar una nota existente.
+      tags:
+        - "Articulo"
+      summary: Editar un artículo existente
+      description: Permite editar un artículo existente.
       consumes:
         - application/json
       produces:
@@ -121,27 +105,30 @@ paths:
           required: true
           type: string
           description: Token de acceso
-        - name: nombreArchivo
+        - name: _idArticulo
           in: path
           required: true
-          type: string
+          type: integer
         - in: body
-          name: nota
+          name: articulo
           required: true
           schema:
             type: object
             properties:
+              titulo:
+                type: string
               contenido:
                 type: string
       responses:
         '200':
-          description: Nota actualizada exitosamente
+          description: Artículo actualizado exitosamente
         '404':
-          description: Nota no encontrada
-
+          description: Artículo no encontrada
     delete:
-      summary: Eliminar una nota
-      description: Permite la eliminación de una nota.
+      tags:
+          - "Articulo"
+      summary: Eliminar un artículo
+      description: Permite la eliminación de un artículo.
       produces:
         - application/json
       parameters:
@@ -150,12 +137,148 @@ paths:
           required: true
           type: string
           description: Token de acceso
-        - name: nombreArchivo
+        - name: _idArticulo
           in: path
           required: true
-          type: string
+          type: integer
       responses:
         '200':
-          description: Nota eliminada exitosamente
+          description: Artículo eliminado exitosamente
         '404':
-          description: Nota no encontrada
+          description: Artículo no encontrada
+
+  /articulos:
+    get:
+      tags:
+        - "Articulo"
+      summary: Listar todos los artículos
+      description: Recupera todos los articulos disponibles.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Articulos listados exitosamente
+        '404':
+          description: No se encontraron articulos
+  /comentario:
+    post:
+      tags:
+          - "Comentario"
+      summary: Crear un nuevo comentario
+      description: Permite la creación de un nuevo comentario.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: authorization
+          in: header
+          required: true
+          type: string
+          description: Token de acceso
+        - in: body
+          name: articulo
+          description: contenido del comentario
+          required: true
+          schema:
+            type: object
+            properties:
+              contenido:
+                type: string
+      responses:
+        '201':
+          description: Comentario creado exitosamente
+        '400':
+          description: Datos inválidos
+  /comentario/{_idComentario}:
+    get:
+      tags:
+        - "Comentario"
+      summary: Leer un comentario específico
+      description: Obtiene los detalles de un comentario específico.
+      produces:
+        - application/json
+      parameters:
+        - name: authorization
+          in: header
+          required: true
+          type: string
+          description: Token de acceso
+        - name: _idComentario
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Comentario encontrado
+        '404':
+          description: Comentario no encontrado
+    patch:
+      tags:
+        - "Comentario"
+      summary: Editar un comentario existente
+      description: Permite editar un comentario existente.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: authorization
+          in: header
+          required: true
+          type: string
+          description: Token de acceso
+        - name: _idComentario
+          in: path
+          required: true
+          type: integer
+        - in: body
+          name: comentario
+          required: true
+          schema:
+            type: object
+            properties:
+              contenido:
+                type: string
+      responses:
+        '200':
+          description: Comentario actualizado exitosamente
+        '404':
+          description: Comentario no encontrado
+    delete:
+      tags:
+        - "Comentario"
+      summary: Eliminar un comentario
+      description: Permite la eliminación de un comentario.
+      produces:
+        - application/json
+      parameters:
+        - name: authorization
+          in: header
+          required: true
+          type: string
+          description: Token de acceso
+        - name: _idComentario
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Comentario eliminado exitosamente
+        '404':
+          description: Comentario no encontrado
+
+  /comentarios:
+    get:
+      tags:
+        - "Comentario"
+      summary: Listar todos los comentario
+      description: Recupera todos los comentarios disponibles.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Comentarios listados exitosamente
+        '404':
+          description: No se encontraron comentarios
+  
