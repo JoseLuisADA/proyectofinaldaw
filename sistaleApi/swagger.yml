@@ -11,14 +11,11 @@ schemes:
 securityDefinitions:
   Bearer:
     type: apiKey
-    name: Authorization
+    name: authorization
     in: header
-
-security:
-  - Bearer: []
-
+    
 paths:
-  /login:
+  /v1/login:
     post:
       tags:
         - Cuenta
@@ -45,7 +42,7 @@ paths:
           description: Autenticación exitosa
         '401':
           description: Credenciales inválidas
-  /register:
+  /v1/register:
     post:
       tags:
         - Cuenta
@@ -74,7 +71,7 @@ paths:
           description: Registro exitoso
         '401':
           description: Datos inválidos
-  /articulo:
+  /v1/articulo:
     post:
       tags:
         - Artículo
@@ -87,11 +84,6 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: authorization
-          in: header
-          required: true
-          type: string
-          description: Token de acceso
         - in: body
           name: articulo
           description: Datos del nuevo articulo
@@ -108,7 +100,7 @@ paths:
           description: Articulo creado exitosamente
         '400':
           description: Datos inválidos
-  /articulo/{_idArticulo}:
+  /v1/articulo/{idArticulo}:
     get:
       tags:
         - Artículo
@@ -119,12 +111,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: authorization
-          in: header
-          required: true
-          type: string
-          description: Token de acceso
-        - name: _idArticulo
+        - name: idArticulo
           in: path
           required: true
           type: integer
@@ -145,12 +132,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: authorization
-          in: header
-          required: true
-          type: string
-          description: Token de acceso
-        - name: _idArticulo
+        - name: idArticulo
           in: path
           required: true
           type: integer
@@ -179,12 +161,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: authorization
-          in: header
-          required: true
-          type: string
-          description: Token de acceso
-        - name: _idArticulo
+        - name: idArticulo
           in: path
           required: true
           type: integer
@@ -193,7 +170,7 @@ paths:
           description: Artículo eliminado exitosamente
         '404':
           description: Artículo no encontrada
-  /articulos:
+  /v1/articulos:
     get:
       tags:
         - Artículo
@@ -206,7 +183,7 @@ paths:
           description: Articulos listados exitosamente
         '404':
           description: No se encontraron articulos
-  /comentario:
+  /v1/comentario:
     post:
       tags:
         - Comentario
@@ -219,11 +196,6 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: authorization
-          in: header
-          required: true
-          type: string
-          description: Token de acceso
         - in: body
           name: articulo
           description: contenido del comentario
@@ -238,21 +210,18 @@ paths:
           description: Comentario creado exitosamente
         '400':
           description: Datos inválidos
-  /comentario/{_idComentario}:
+  /v1/comentario/{idComentario}:
     get:
       tags:
         - Comentario
+      security:
+        - Bearer: []
       summary: Leer un comentario específico
       description: Obtiene los detalles de un comentario específico.
       produces:
         - application/json
       parameters:
-        - name: authorization
-          in: header
-          required: true
-          type: string
-          description: Token de acceso
-        - name: _idComentario
+        - name: idComentario
           in: path
           required: true
           type: integer
@@ -273,12 +242,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: authorization
-          in: header
-          required: true
-          type: string
-          description: Token de acceso
-        - name: _idComentario
+        - name: idComentario
           in: path
           required: true
           type: integer
@@ -305,12 +269,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: authorization
-          in: header
-          required: true
-          type: string
-          description: Token de acceso
-        - name: _idComentario
+        - name: idComentario
           in: path
           required: true
           type: integer
@@ -319,11 +278,11 @@ paths:
           description: Comentario eliminado exitosamente
         '404':
           description: Comentario no encontrado
-  /comentarios:
+  /v1/comentarios:
     get:
       tags:
         - Comentario
-      summary: Listar todos los comentario
+      summary: Listar todos los comentarios
       description: Recupera todos los comentarios disponibles.
       produces:
         - application/json
