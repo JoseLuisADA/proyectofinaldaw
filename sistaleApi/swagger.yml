@@ -174,13 +174,36 @@ paths:
     get:
       tags:
         - Artículo
+      security:
+        - Bearer: []
       summary: Listar todos los artículos
       description: Recupera todos los articulos disponibles.
       produces:
         - application/json
+      parameters:
+        - name: page
+          in: query
+          description: Número de página para la paginación
+          required: false
+          type: integer
+        - name: size
+          in: query
+          description: Tamaño de la página para la paginación
+          required: false
+          type: integer
       responses:
         '200':
           description: Articulos listados exitosamente
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+                description: Total de artículos disponibles.
+              items:
+                type: array
+                items:
+                  $ref: '#/definitions/Articulo'
         '404':
           description: No se encontraron articulos
   /v1/comentario:
@@ -282,12 +305,53 @@ paths:
     get:
       tags:
         - Comentario
+      security:
+        - Bearer: []
       summary: Listar todos los comentarios
       description: Recupera todos los comentarios disponibles.
       produces:
         - application/json
+      parameters:
+        - name: page
+          in: query
+          description: Número de página para la paginación
+          required: false
+          type: integer
+        - name: size
+          in: query
+          description: Tamaño de la página para la paginación
+          required: false
+          type: integer
       responses:
         '200':
           description: Comentarios listados exitosamente
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+                description: Total de comentarios disponibles.
+              items:
+                type: array
+                items:
+                  $ref: '#/definitions/Comentario'
         '404':
           description: No se encontraron comentarios
+definitions:
+  Articulo:
+    type: object
+    properties:
+      id:
+        type: integer
+      titulo:
+        type: string
+      contenido:
+        type: string
+
+  Comentario:
+    type: object
+    properties:
+      id:
+        type: integer
+      contenido:
+        type: string

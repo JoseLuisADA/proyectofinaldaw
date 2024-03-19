@@ -7,6 +7,7 @@ const comentarioModelo = new Schema({
   contenido: { type: String, required: true, unique: true },
   fecha: { type: Date, default: Date.now },
   idCuenta: { type: mongoose.Schema.Types.ObjectId, ref: 'Cuenta' },
+  idArticulo: { type: mongoose.Schema.Types.ObjectId, ref: 'Articulo' },
 }, { primaryKey: '_idComentario' });
 
 export default mongoose.model('Comentario', comentarioModelo);
