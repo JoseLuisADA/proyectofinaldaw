@@ -1,10 +1,18 @@
-import * as fs from "fs";
-import path from "path";
-import Nota from "../models/notaModelo.js";
+import mongoose from 'mongoose';
+import articuloModelo from "../models/articuloModelo";
 
-export function crearArticulo(nombreArchivo, contenido) {
-    const articulo = new Articulo(nombreArchivo, contenido);
 
+export function crearArticulo(idCuenta, titulo, contenido) {
+    
+    if(idCuenta && titulo && contenido){
+        const nuevoArticulo = new Articulo({
+            _idArticulo: new mongoose.Types.ObjectId(),
+            titulo: titulo,
+            contenido: titulo,
+            // La fecha se asignará automáticamente al valor por defecto definido en el esquema
+            idCuenta: idCuenta // Asegúrate de reemplazar esto con un ObjectId válido de una cuenta existente
+        })
+    }
 }
 
 export function leerNota(nombreArchivo) {
