@@ -1,18 +1,14 @@
-// loaders/db-loader.js
 import mongoose from 'mongoose';
-import { MONGO_URI } from '../utils/config.js';
+import dotenv from 'dotenv';
 
-export async function connectDB() {
-    try {
-        await mongoose.connect(MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-            useFindAndModify: false
-        });
-        console.log('Conexión con la base de datos establecida');
-    } catch (error) {
-        console.error('Error al conectar con la base de datos:', error);
-        process.exit(1); // Terminar la aplicación con un código de error
-    }
+dotenv.config();
+
+export default async function connectDB() {
+  try {
+      await mongoose.connect(process.env.MONGO_URI);
+      console.log('Conexión con la base de datos establecida');
+  } catch (error) {
+      console.error('Error al conectar con la base de datos:', error);
+      process.exit(1); // Terminar la aplicación con un código de error
+  }
 }

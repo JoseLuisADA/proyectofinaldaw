@@ -1,13 +1,12 @@
-// Importa el módulo mongoose
-import { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 // Define el esquema de usuario
 const comentarioModelo = new Schema({
-  _idComentario: { type: Number, required: true, unique: true },
-  contenido: { type: String, required: true, unique: true },
+  contenido: { type: String, required: true },
   fecha: { type: Date, default: Date.now },
-  idCuenta: { type: mongoose.Schema.Types.ObjectId, ref: 'Cuenta' },
-  idArticulo: { type: mongoose.Schema.Types.ObjectId, ref: 'Articulo' },
-}, { primaryKey: '_idComentario' });
+  idCuenta: { type: Schema.Types.ObjectId, ref: 'Cuenta', required: true },
+  idArticulo: { type: Schema.Types.ObjectId, ref: 'Articulo', required: true }
+}, { collection: 'comentario' });
+
 
 export default mongoose.model('Comentario', comentarioModelo);
