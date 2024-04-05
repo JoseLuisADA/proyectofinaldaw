@@ -1,5 +1,6 @@
 // src/services/articulo-services.js
 import ArticuloModel from '../models/articulo-modelo.js';
+import SistaleError from '../utils/SistaleError.js';
 
 export async function createArticulo(titulo, contenido, username) {
   const articulo = new ArticuloModel({
@@ -12,9 +13,8 @@ export async function createArticulo(titulo, contenido, username) {
 }
 
 export async function getArticuloById(id) {
-  const articulo = await ArticuloModel.findById(id);
-  if (!articulo) throw new Error('Artículo no encontrado');
-  return articulo;
+   const articulo = await ArticuloModel.findById(id);
+   return articulo;
 }
 
 export async function updateArticulo(id, titulo, contenido) {

@@ -1,9 +1,8 @@
 // src/loaders/express-loader.js
 import express from 'express';
 import cors from 'cors';
-
 import router from '../routes/v1/index.js';
-import { errorMiddleware } from '../middlewares/error-middleware.js';
+import errorMiddleware from '../middlewares/error-middleware.js';
 import swaggerUi from 'swagger-ui-express';
 //import swaggerDocument from '../openapi/openapi.json' assert { type: "json" };
 

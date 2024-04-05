@@ -1,7 +1,6 @@
 // src/models/comentario-modelo.js
 import mongoose, { Schema } from 'mongoose';
 
-// Define el esquema de usuario
 const comentarioModelo = new Schema({
   contenido: { type: String, required: true },
   fecha: { type: Date, default: Date.now },

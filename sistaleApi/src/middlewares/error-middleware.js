@@ -1,11 +1,13 @@
 // src/middlewares/error-middleware.js
-import logger from '../utils/logger.js';
-export function errorMiddleware(err, req, res, next){
-    logger.error(err);
-    const { status = 500, message } = err;
-    const msg = status >= 500 ? 'Error' : message;
-    const errorResponse = {
-        status, message: msg
+import SistaleError from '../utils/SistaleError.js';
+
+const errorMiddleware = (err, req, res, next) => {
+    if (err instanceof SistaleError) {
+        res.status(err.status).json({ Mensaje: err.message });
+    } else {
+        console.error(err);
+        res.status(500).json({ Mensaje: 'Ha ocurrido un error' });
     }
-    res.status(status).send(errorResponse);
-}
+};
+
+export default errorMiddleware;
