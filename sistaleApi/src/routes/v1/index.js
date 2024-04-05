@@ -1,6 +1,7 @@
+// src/routes/v1/index.js
 import express from 'express';
-import authRouter from '../../routes/v1/authRutas.js';
-import articuloRouter from '../../routes/v1/articuloRutas.js'
+import authRouter from './auth-ruta.js';
+import articuloRouter from './articulo-ruta.js'
 const router = express.Router();
 
 router.use(authRouter);

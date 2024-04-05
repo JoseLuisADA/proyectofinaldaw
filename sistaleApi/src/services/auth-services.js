@@ -1,5 +1,5 @@
 // src/services/auth-services.js
-import CuentaModel from '../models/CuentaModelo.js';
+import CuentaModel from '../models/cuenta-modelo.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -21,11 +21,11 @@ export async function register(username, email, password) {
 
 export async function login(username, password) {
   const user = await CuentaModel.findOne({ username });
-  if (!user) throw new Error('Usuario no encontrado');
+  if (!user) throw new Error('Usuario o contraseña incorrecta');
 
   const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) throw new Error('Credenciales inválidas');
+  if (!isMatch) throw new Error('Usuario o contraseña incorrecta');
 
-  const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
+  const token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: '1h' });
   return token;
 }

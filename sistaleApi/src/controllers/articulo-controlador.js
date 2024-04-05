@@ -4,9 +4,9 @@ import * as ArticuloService from '../services/articulo-services.js';
 export async function create(req, res) {
   try {
     const { titulo, contenido } = req.body;
-    // El ID del usuario autenticado debe obtenerse del token JWT
-    const userId = req.user.id; // Esto dependerá de cómo gestiones la autenticación JWT
-    const articulo = await ArticuloService.createArticulo(titulo, contenido, userId);
+    const username = req.user.username;
+    console.log(username);
+    const articulo = await ArticuloService.createArticulo(titulo, contenido, username);
     res.status(201).json(articulo);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -50,6 +50,6 @@ export async function list(req, res) {
     const { total, articulos } = await ArticuloService.listArticulos(page, size);
     res.status(200).json({ total, articulos });
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(404).json({ Mensaje: "Error al cargar los articulos" });
   }
 }

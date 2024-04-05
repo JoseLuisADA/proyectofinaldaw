@@ -1,11 +1,11 @@
 // src/services/articulo-services.js
-import ArticuloModel from '../models/articuloModelo.js';
+import ArticuloModel from '../models/articulo-modelo.js';
 
-export async function createArticulo(titulo, contenido, userId) {
+export async function createArticulo(titulo, contenido, username) {
   const articulo = new ArticuloModel({
     titulo,
     contenido,
-    autor: userId
+    username: username
   });
   await articulo.save();
   return articulo;

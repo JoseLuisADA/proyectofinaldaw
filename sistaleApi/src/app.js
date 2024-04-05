@@ -1,3 +1,4 @@
+// src/app.js
 import express from 'express';
 import * as loader from './loaders/index.js';
 

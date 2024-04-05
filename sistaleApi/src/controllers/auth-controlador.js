@@ -7,7 +7,7 @@ export async function register(req, res) {
     await AuthService.register(username, email, password);
     res.status(200).json({Mensaje: "Cuenta creada"});
   } catch (error) {
-    res.status(401).json({ message: error.message });
+    res.status(401).json({Mensaje: "Error al crear la cuenta"});
   }
 }
 

@@ -1,3 +1,4 @@
+// src/middlewares/error-middleware.js
 import logger from '../utils/logger.js';
 export function errorMiddleware(err, req, res, next){
     logger.error(err);

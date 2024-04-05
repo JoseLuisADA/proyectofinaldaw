@@ -1,4 +1,4 @@
-// src/routes/authRutas.js
+// src/routes/v1/auth-ruta.js
 import express from 'express';
 import * as authController from '../../controllers/auth-controlador.js';
 

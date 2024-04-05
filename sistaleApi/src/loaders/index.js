@@ -1,4 +1,4 @@
-//./loaders/index.js
+// src/loaders/index.js
 import expressLoader from "./express-loader.js";
 import connectDB from './db-loader.js';
 
