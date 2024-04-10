@@ -1,6 +1,7 @@
 export const obtenerArticulos = async () => {
   try {
-    const response = await fetch(`${process.env.SISTALE_API_URL}/articulos`);
+    console.log(process.env.NEXT_PUBLIC_SISTALE_API);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SISTALE_API}/articulos`);
     if (!response.ok) {
       throw new Error('Error al obtener artículos');
     }
@@ -12,7 +13,7 @@ export const obtenerArticulos = async () => {
 };
 
 export const crearArticulo = async (articulo) => {
-  const response = await fetch(`${process.env.SISTALE_API_URL}/articulo`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_SISTALE_API}/articulo`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(articulo),
@@ -24,7 +25,7 @@ export const crearArticulo = async (articulo) => {
 };
 
 export const actualizarArticulo = async (articulo) => {
-  const response = await fetch(`${process.env.SISTALE_API_URL}/${articulo._id}`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_SISTALE_API}/${articulo._id}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(articulo),

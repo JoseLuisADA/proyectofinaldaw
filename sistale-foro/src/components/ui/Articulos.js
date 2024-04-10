@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { obtenerArticulos } from '../../api/articulosApi.js';
-import './articulo.css';
 
-const ArticuloList = () => {
+const Articulos = () => {
   const [articulosData, setArticulosData] = useState({
     total: 0,
     articulos: []
   });
 
   useEffect(() => {
-    const fetchArticulos = async () => {
-      try {
-        const data = await obtenerArticulos();
-        setArticulosData(data);
-      } catch (error) {
-        console.error('Error al obtener los artículos:', error);
-      }
-    };
-    fetchArticulos();
+    if (typeof window !== "undefined") {
+      const fetchArticulos = async () => {
+        try {
+          const data = await obtenerArticulos();
+          setArticulosData(data);
+        } catch (error) {
+          console.error('Error al obtener los artículos:', error);
+        }
+      };
+      fetchArticulos();
+    }
   }, []);
 
   return (
@@ -41,4 +42,4 @@ const ArticuloList = () => {
   );
 };
 
-export default ArticuloList;
+export default Articulos;
