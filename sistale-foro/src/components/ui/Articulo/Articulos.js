@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { obtenerArticulos } from '../../api/articulosApi.js';
+import { obtenerArticulos } from '../../../services/articulosApi.js';
 
 const Articulos = () => {
   const [articulosData, setArticulosData] = useState({
