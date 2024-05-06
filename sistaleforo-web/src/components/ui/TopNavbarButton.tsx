@@ -1,5 +1,5 @@
-import React from "react"
-import { Button } from "./Button"
+import React from 'react'
+import { Button } from './Button'
 
 interface TopbarButtonProps {
   title: string
@@ -7,21 +7,17 @@ interface TopbarButtonProps {
   onClick: () => void
 }
 
-const TopbarButton = ({
-  title,
-  active,
-  onClick,
-}: TopbarButtonProps) => {
+const TopbarButton = ({ title, active, onClick }: TopbarButtonProps) => {
   return (
     <Button
       onClick={onClick}
       size="sm"
       variant="ghost"
-      className={`hover:bg-slate-200 ${
-        active
-          ? "bg-black border text-white hover:bg-depa-gray-700 hover:text-depa-gray-0"
-          : ""
-      }border border-black`}>
+      className={`bg-[#9CD6C8] border-b border-r border-black hover:bg-[#c3f7ec]
+      ${
+        active ? 'bg-[#c3f7ec] hover:bg-[#9CD6C8]' : ''
+      }`}
+    >
       {title}
     </Button>
   )

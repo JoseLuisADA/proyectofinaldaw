@@ -65,7 +65,7 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="w-full h-full flex justify-center items-center">
+    <div className="w-full h-full flex justify-center items-center pb-32">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm bg-white p-10 border border-black rounded-[30px]">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm mb-6">
           <h2 className="text-center text-2xl">Iniciar sesión</h2>
@@ -111,13 +111,13 @@ const LoginForm = () => {
               )}
             />
             <Button
-              className="font-bold text-xs bg-[#E57C3A] hover:bg-[#ff9858] text-black w-full flex justify-center items-center rounded-md mx-auto "
+              className="font-bold text-base bg-[#E57C3A] hover:bg-[#ff9858] text-black w-full flex justify-center items-center rounded-md mx-auto "
               type="submit"
             >
               {loading ? (
                 <i className="bx bx-loader bx-spin bx-sm">Cargando...</i>
               ) : (
-                'Iniciar sesión'
+                'Entrar'
               )}
             </Button>
           </form>

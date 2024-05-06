@@ -13,7 +13,7 @@ const TopNavbar = () => {
   }
 
   return (
-      <div className="bg-[#9CD6C8] inline-flex w-full">
+      <div className="inline-flex w-full">
         {TOPBAR_BUTTONS.SYSTEM.map((button) => (
           <TopbarButton
             key={button.title}
