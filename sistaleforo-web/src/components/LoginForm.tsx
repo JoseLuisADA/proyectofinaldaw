@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import { z } from 'zod'
+import { jwtDecode } from 'jwt-decode'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/Button'
@@ -28,6 +29,10 @@ const formSchema = z.object({
     .max(100),
 })
 
+interface Token {
+  username: string;
+}
+
 const LoginForm = () => {
   const [error, setError] = React.useState<string | null>(null)
   const [loading, setLoading] = React.useState(false)
@@ -41,28 +46,41 @@ const LoginForm = () => {
   })
 
   const onSubmit = async () => {
-    setLoading(true)
+    setLoading(true);
+  
     try {
       const response = await axios.post('/api/sign-in', {
         username: form.getValues('username'),
         password: form.getValues('password'),
-      })
-      const { token } = response.data
-      const [, payload] = token.split('.')
-      const mainAccountId = JSON.parse(atob(payload)).main_account_uuid
-      await setCookie('token', token, 30)
-      await setCookie('mainAccountId', mainAccountId, 30)
+      });
+  
+      const { token } = response.data;
+      const decoded = jwtDecode<Token>(token);
+      const username = decoded.username;
+  
+      await setCookie('token', token, 30);
+      await setCookie('username', username, 30);
+  
       setTimeout(() => {
-        router.push('/')
-        setLoading(false)
-      }, 500)
+        router.push('/');
+        setLoading(false);
+      }, 500);
+  
     } catch (error: any) {
-      if (error.response.status === 401) {
-        setError('Credenciales inválidas')
-        setLoading(false)
+      setLoading(false);
+  
+      if (error.response) {
+        if (error.response.status >= 401 && error.response.status < 500) {
+          setError('Credenciales inválidas');
+        } else if (error.response.status >= 500) {
+          setError('La página no está disponible en estos momentos');
+        } 
+      } else {
+        setError('Error al conectar con el servidor');
       }
     }
-  }
+  };
+  
 
   return (
     <div className="w-full h-full flex justify-center items-center pb-32">
@@ -78,7 +96,7 @@ const LoginForm = () => {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Correo electrónico :</FormLabel>
+                  <FormLabel>Usuario :</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
