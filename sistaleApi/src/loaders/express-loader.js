@@ -8,7 +8,7 @@ import swaggerUi from 'swagger-ui-express';
 
 export default function(server){
     /* Config */
-    server.use(cors(`*`));
+    server.use(cors());
     server.use(express.json());
     server.use(express.urlencoded({ extended: true}));
     /** */
