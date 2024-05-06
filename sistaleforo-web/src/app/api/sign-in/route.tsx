@@ -11,23 +11,21 @@ export async function POST(req: NextRequest) {
         'Content-Type': 'application/json',
       },
       data: JSON.stringify({
-        email: body.username,
+        username: body.username,
         password: body.password,
       }),
     });
 
-    return NextResponse.json(data.data);
+    return NextResponse.json(data);
   } catch (error: any) {
-    // Verifica si error.response existe y maneja los códigos de estado
     if (error.response) {
       if (error.response.status >= 400 && error.response.status < 500) {
-        // Cambiado a 401 Unauthorized para reflejar más adecuadamente un error de autenticación
         return new Response('Usuario o contraseña incorrectas', { status: 401 });
       } else {
         return new Response('Página no disponible en estos momentos', { status: 500 });
       }
     } else {
-      return new Response('Página no disponible en estos momentos', { status: 500 });
+      return new Response('Problemas al conectar con el servicio externo', { status: 502 });
     }
   }
 }
