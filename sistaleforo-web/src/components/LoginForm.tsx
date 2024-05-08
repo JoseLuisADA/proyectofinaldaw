@@ -142,7 +142,7 @@ const LoginForm = () => {
         </Form>
         {error && (
           <div
-            className={`text-red-500 text-center mt-4 ${
+            className={`text-black text-center text-lg align-middle mt-4 ${
               error ? 'error-message' : ''
             }`}
           >
