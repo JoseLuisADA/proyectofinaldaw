@@ -20,10 +20,10 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         />
       </head>
-      <body className='font-crush'>
+      <body className='font-crush flex flex-col h-screen m-0 p-0'>
         <AuthProvider>
           <Header />
-          <main id="app" className="d-flex flex-column h-100 " data-testid="layout">
+          <main id="app" className="flex-1 w-full overflow-auto" data-testid="layout">
             <NavBar />
             <Container className="flex-grow-1 mt-5">{children}</Container>
           </main>
