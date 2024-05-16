@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { jwtDecode } from 'jwt-decode'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/ui/Button'
 import {
   Form,
   FormControl,
@@ -12,8 +12,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/Input'
+} from '@/ui/form'
+import { Input } from '@/ui/Input'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { setCookie } from '@/helpers/cookiesHelpers'

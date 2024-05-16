@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import TopbarButton from './ui/TopNavbarButton'
+import TopbarButton from '@/ui/TopNavbarButton'
 import { usePathname, useRouter } from 'next/navigation'
 import { TOPBAR_BUTTONS } from './constants'
 
@@ -19,7 +19,7 @@ const TopNavbar = () => {
             key={button.title}
             title={button.title}
             onClick={() => handleButtonClick(button.path)}
-            active={path?.includes(`/${button.path}` ) || (path === '/' && button.path === '/')}
+            active={path?.includes(`/${button.path}`) || (path === '/' && button.path === '/')}
           />
         ))}
       </div>
