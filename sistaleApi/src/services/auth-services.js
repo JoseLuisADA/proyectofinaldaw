@@ -19,7 +19,7 @@ export async function register(username, email, password) {
   await newUser.save();
 }
 
-export async function login(username, password) {
+export async function login(username, password, res) {
   let token;
 
   const cuenta = await CuentaModel.findOne({ username });
