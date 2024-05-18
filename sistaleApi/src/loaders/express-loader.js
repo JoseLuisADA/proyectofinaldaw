@@ -8,10 +8,13 @@ import swaggerUi from 'swagger-ui-express';
 
 export default function(server){
     /* Config */
-    server.use(cors());
+    const corsOptions = {
+        origin: '*', // Permitir solicitudes desde este origen
+        credentials: true, // Permitir el envío de cookies
+    };
+    server.use(cors(corsOptions));
     server.use(express.json());
     server.use(express.urlencoded({ extended: true}));
-    /** */
     //server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     /* Routes */
     server.use(router);
