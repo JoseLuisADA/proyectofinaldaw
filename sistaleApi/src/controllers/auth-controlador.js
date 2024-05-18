@@ -22,10 +22,11 @@ export async function login(req, res, next) {
     if (!token) throw SistaleError.badRequest('Credenciales inválidas');
     // Configura la cookie segura con el token
     res.cookie('token', token, {
+      name: 'session',
       httpOnly: true,
       secure: false,
       maxAge: 3600000, // 1 hora
-      sameSite: 'Strict',
+      value: token,
     });
     res.status(200).json({ message: 'Login exitoso' } );
   } catch (error) {
