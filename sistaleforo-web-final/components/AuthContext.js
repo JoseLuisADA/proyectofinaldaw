@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const data = await apiLogin(username, password);
-      setUser(data); // Asume que la respuesta incluye el objeto user
+      setUser(data);
       setIsLoading(false);
       router.push('/'); // Redirigimos al usuario a la página principal después del login exitoso
     } catch (err) {
