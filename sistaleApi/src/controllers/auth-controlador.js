@@ -20,7 +20,14 @@ export async function login(req, res, next) {
     const { username, password } = req.body;
     const token = await AuthService.login(username, password);
     if (!token) throw SistaleError.badRequest('Credenciales inválidas');
-    res.status(200).json({ token } );
+    // Configura la cookie segura con el token
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: false,
+      maxAge: 3600000, // 1 hora
+      sameSite: 'Strict',
+    });
+    res.status(200).json({ message: 'Login exitoso' } );
   } catch (error) {
     next(error);
   }
