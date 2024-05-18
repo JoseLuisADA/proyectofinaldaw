@@ -23,7 +23,7 @@ export async function login(req, res, next) {
      // Configura la cookie segura con el token
      res.cookie('session', token, { // Aquí 'session' es el nombre de la cookie y 'token' el valor
       httpOnly: true, // La cookie no es accesible vía JavaScript en el cliente
-      secure: process.env.NODE_ENV === 'production', // En producción, asegúrate de usar HTTPS
+      secure: false,
       maxAge: 3600000, // 1 hora
     });
     res.status(200).json({ message: 'Login exitoso' } );
