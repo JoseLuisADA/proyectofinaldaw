@@ -8,16 +8,32 @@ import swaggerUi from 'swagger-ui-express';
 
 export default function(server){
     /* Config */
+
+    /* CORS */
+
+    const allowedOrigins = ['http://localhost:3000', 'http://otro-origen.com']
+
     const corsOptions = {
-        origin: '*', // Permitir solicitudes desde este origen
-        credentials: true, // Permitir el envío de cookies
-    };
+        origin: function (origin, callback) {
+            if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+                callback(null, true)
+            } else {
+                callback(new Error('No permitido por CORS'))
+            }
+        },
+        credentials: true,
+    }
+    
+    /* SERVER USES */
+
     server.use(cors(corsOptions));
     server.use(express.json());
     server.use(express.urlencoded({ extended: true}));
     //server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
     /* Routes */
     server.use(router);
+    
     /* Error handler */ 
     server.use(errorMiddleware);
 }
