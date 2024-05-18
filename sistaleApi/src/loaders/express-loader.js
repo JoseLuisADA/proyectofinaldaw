@@ -2,6 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import router from '../routes/v1/index.js';
+import cookieParser from 'cookie-parser'
 import errorMiddleware from '../middlewares/error-middleware.js';
 import swaggerUi from 'swagger-ui-express';
 //import swaggerDocument from '../openapi/openapi.json' assert { type: "json" };
@@ -29,6 +30,7 @@ export default function(server){
     server.use(cors(corsOptions));
     server.use(express.json());
     server.use(express.urlencoded({ extended: true}));
+    server.use(cookieParser())
     //server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
     /* Routes */
