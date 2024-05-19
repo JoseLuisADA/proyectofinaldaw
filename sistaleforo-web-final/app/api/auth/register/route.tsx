@@ -5,7 +5,6 @@ import { isAxiosError } from 'axios';
 export const register = async (username: string, password: string): Promise<any> => {
   try {
     const response = await axios.post('/register', { username, password });
-    console.log('Response:', response);
     return response.data;
   } catch (error: any) {
     if (isAxiosError(error)) { 

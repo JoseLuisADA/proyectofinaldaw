@@ -27,7 +27,7 @@ const SignUpPage = () => {
 
     try {
       const msg = await register(username, password);
-      router.push('/login'); // Redirige al usuario a la página de inicio de sesión después del registro exitoso
+      console.log(msg);
     } catch (err) {
     }
   };
