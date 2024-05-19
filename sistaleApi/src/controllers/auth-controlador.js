@@ -5,6 +5,12 @@ import SistaleError from '../utils/SistaleError.js';
 export async function register(req, res, next) {
   try {
     const { username, password } = req.body;
+
+    const existingUser = await CuentaModel.findOne({ username });
+    if (existingUser) {
+      throw new SistaleError.badRequest('El usuario ya está creado');
+    }
+
     if (!username || !password) {
       throw SistaleError.badRequest('Asegúrate de que todos los campos estén rellenos');
     } else if (password.length < 1) {
