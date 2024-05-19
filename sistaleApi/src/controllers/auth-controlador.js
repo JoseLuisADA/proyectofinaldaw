@@ -4,9 +4,13 @@ import SistaleError from '../utils/SistaleError.js';
 
 export async function register(req, res, next) {
   try {
-    const { username, email, password } = req.body;
-    if (!username || !email || !password) {
+    const { username, password } = req.body;
+    if (!username || !password) {
       throw SistaleError.badRequest('Asegúrate de que todos los campos estén rellenos');
+    } else if (password.length < 1) {
+      throw SistaleError.badRequest('La contraseña debe tener al menos 1 caracter');
+    } else if (username.length < 1) {
+      throw SistaleError.badRequest('El nombre de usuario debe tener al menos 1 caracter');
     }
     await AuthService.register(username, email, password);
     res.status(200).json({ Mensaje: 'Cuenta creada' });
@@ -27,7 +31,7 @@ export async function login(req, res, next) {
       maxAge: 3600000, // 1 hora
       sameSite: 'Strict',
     });
-    res.status(200).json({ message: 'Login exitoso' } );
+    res.status(200).json({ message: 'Se ha realizado login con éxito' } );
   } catch (error) {
     next(error);
   }
