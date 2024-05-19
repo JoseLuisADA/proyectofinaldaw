@@ -8,12 +8,11 @@ dotenv.config(); // Esto carga las variables de entorno del archivo .env
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-export async function register(username, email, password) {
+export async function register(username, password) {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const newUser = new CuentaModel({
     username,
-    email,
     password: hashedPassword
   });
   await newUser.save();
