@@ -2,6 +2,7 @@
 import React, { createContext, useState } from 'react';
 import { useRouter } from 'next/navigation'; // Importamos el enrutador de navegación de Next.js
 import { login as apiLogin } from '../app/api/auth/login/route';
+import { register as apiRegister } from '../app/api/auth/register/route';
 import { logout as apiLogout } from '../app/api/auth/logout/route';
 
 export const AuthContext = createContext();
@@ -26,6 +27,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Función para manejar el registro
+  const register = async (username, password) => {
+    setIsLoading(true);
+    try {
+      await apiRegister(username, password);
+      setIsLoading(false);
+      router.push('/login'); // Redirigimos al usuario a la página de login después del registro exitoso
+    } catch (err) {
+      setError({ message: err.message });
+      setIsLoading(false);
+    }
+  };
+
   // Función para manejar el cierre de sesión
   const logout = async () => {
     setIsLoading(true);
@@ -41,7 +55,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, error, login, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, error, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
