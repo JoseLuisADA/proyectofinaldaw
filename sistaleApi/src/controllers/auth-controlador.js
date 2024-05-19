@@ -12,7 +12,7 @@ export async function register(req, res, next) {
     } else if (username.length < 1) {
       throw SistaleError.badRequest('El nombre de usuario debe tener al menos 1 caracter');
     }
-    await AuthService.register(username, email, password);
+    await AuthService.register(username, password);
     res.status(200).json({ Mensaje: 'Cuenta creada' });
   } catch (error) {
     next(error);
