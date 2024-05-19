@@ -1,7 +1,7 @@
 // src/controllers/auth-controlador.js
 import * as AuthService from '../services/auth-services.js';
 import SistaleError from '../utils/SistaleError.js';
-import CuentaModel from '../models/cuenta-model.js';
+import CuentaModel from '../models/cuenta-modelo.js';
 
 export async function register(req, res, next) {
   try {
