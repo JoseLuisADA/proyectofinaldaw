@@ -3,6 +3,7 @@ import React, { ErrorInfo } from "react"
 import { Input } from "../ui/input"
 
 interface CustomInputProps {
+  id?: string
   icon?: string
   iconSize?: string
   iconColor?: string
@@ -39,9 +40,10 @@ class CustomInput extends React.Component<CustomInputProps, CustomInputState> {
     }
 
     const {
+      id = "",
       icon,
       iconSize = "",
-      iconColor = "black",
+      iconColor = "",
       type,
       className = "",
       placeholder = "",
@@ -57,6 +59,7 @@ class CustomInput extends React.Component<CustomInputProps, CustomInputState> {
           <div className="pl-4"></div>
         )}
         <Input
+          id=""
           type={type}
           placeholder={placeholder}
           onChange={() => {}}
