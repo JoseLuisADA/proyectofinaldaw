@@ -10,6 +10,10 @@ class SistaleError extends Error {
         return new SistaleError(400, msg);
     }
 
+    static unauthorized(msg) {
+        return new SistaleError(401, msg);
+      }
+
     static internal(msg) {
         return new SistaleError(500, msg);
     }
