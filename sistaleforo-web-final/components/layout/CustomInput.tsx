@@ -59,7 +59,7 @@ class CustomInput extends React.Component<CustomInputProps, CustomInputState> {
           <div className="pl-4"></div>
         )}
         <Input
-          id=""
+          id={id}
           type={type}
           placeholder={placeholder}
           onChange={() => {}}
