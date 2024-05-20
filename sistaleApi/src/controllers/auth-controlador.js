@@ -20,7 +20,7 @@ export async function register(req, res, next) {
       throw SistaleError.badRequest('El nombre de usuario debe tener al menos 1 caracter');
     }
     await AuthService.register(username, password);
-    res.status(200).json({ Mensaje: 'Cuenta creada' });
+    res.status(200).json({ message: 'Cuenta creada' });
   } catch (error) {
     next(error);
   }
