@@ -9,7 +9,7 @@ export async function register(req, res, next) {
 
     const existingUser = await CuentaModel.findOne({ username });
     if (existingUser) {
-      throw SistaleError.badRequest('El usuario ya está creado');
+      throw SistaleError.conflict('El usuario ya está creado');
     }
 
     if (!username || !password) {
