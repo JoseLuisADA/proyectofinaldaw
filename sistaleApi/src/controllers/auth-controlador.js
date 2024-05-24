@@ -40,7 +40,7 @@ export async function login(req, res, next) {
       httpOnly: true, // La cookie no es accesible vía JavaScript en el cliente
       secure: false,
       maxAge: 3600000, // 1 hora
-      sameSite: 'Strict',
+      sameSite: 'none',
     });
     res.status(200).json({ message: 'Se ha realizado login con éxito' });
   } catch (error) {
