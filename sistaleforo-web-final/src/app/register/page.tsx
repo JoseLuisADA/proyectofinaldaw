@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import useRegister from '../../hooks/useRegister';
-import userSchema from '../../lib/userSchema';
+import userSchema from '../../lib/registerSchema';
 
 const SignUpPage = () => {
   const [username, setUsername] = useState('');
