@@ -1,4 +1,4 @@
-export interface Articulo {
+export interface ArticuloProps {
     _id: string;
   titulo: string;
   contenido: string;
