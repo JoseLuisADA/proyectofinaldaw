@@ -12,7 +12,7 @@ export default function(server){
 
     /* CORS */
 
-    const allowedOrigins = ['http://localhost:3000', 'http://otro-origen.com']
+    const allowedOrigins = ['*']
 
     const corsOptions = {
         origin: function (origin, callback) {
