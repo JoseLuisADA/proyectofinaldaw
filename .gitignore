@@ -16,7 +16,7 @@ cypress.env.json
 
 # next.js
 out
-
+.next
 # production
 build
 
