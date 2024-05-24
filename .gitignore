@@ -34,6 +34,7 @@ yarn-error.log*
 
 # Excepto .env.example
 !.env.example
+!.env.local
 
 # vercel
 .vercel
