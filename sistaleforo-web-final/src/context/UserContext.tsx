@@ -1,6 +1,6 @@
 'use client'
 import React, { createContext, useContext, useState } from "react"
-import { UserProps } from "../types/user"
+import { UserProps } from "../types/userProps"
 
 export interface UserContextType {
   user: { username: string }
