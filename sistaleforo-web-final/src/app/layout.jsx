@@ -2,13 +2,10 @@
 'use client';
 
 import './globals.css';
-import { UserProvider } from '../context/UserContext';
-import NavBar from '../components/NavBar';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import React from 'react';
 import localFont from "next/font/local"
 import PropTypes from 'prop-types';
+import MainLayout from '../components/MainLayout';
 
 const myFont = localFont({
   src: "../../public/fonts/CrushBubble.otf",
@@ -26,15 +23,10 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
         />
       </head>
-      <body className={`${myFont.className} flex flex-col h-screen m-0 p-0`}>
-        <UserProvider>
-          <Header />
-          <main id="app" className="flex-1 w-full overflow-auto" data-testid="layout">
-            <NavBar />
-            {children}
-          </main>
-          <Footer />
-        </UserProvider>
+      <body className={`${myFont.className} h-full`}>
+        <MainLayout>
+          {children}
+        </MainLayout>
       </body>
     </html>
   );
