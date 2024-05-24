@@ -5,13 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "test": "jest tests --coverage --maxWorkers=10",
-    "test:watch": "jest --coverage --watch",
-    "test:integration": "start-server-and-test start http-get://localhost:3000 cypress:run",
-    "test:integration:watch": "start-server-and-test start http-get://localhost:3000 cypress:open",
-    "cypress:run": "cypress run --browser chrome",
-    "cypress:open": "cypress open --browser chrome"
+    "start": "next start"
   },
   "dependencies": {
     "@fortawesome/react-fontawesome": "^0.2.0",
