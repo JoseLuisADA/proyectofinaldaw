@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import useArticulos from '../hooks/useArticulos';
-import { Articulo } from '../types/articulo';
+import { ArticuloProps } from '../types/articuloProps';
 
 const ArticulosList = () => {
   const [page, setPage] = useState(1);
@@ -22,7 +22,7 @@ const ArticulosList = () => {
       {!isLoading && !error && (
         <>
           <ul>
-            {articulos.map((articulo: Articulo) => (
+            {articulos.map((articulo: ArticuloProps) => (
               <li key={articulo._id} className="mb-4 p-4 border rounded shadow-sm">
                 <h2 className="text-xl font-bold">{articulo.titulo}</h2>
                 <p className="text-gray-700">{articulo.contenido}</p>
