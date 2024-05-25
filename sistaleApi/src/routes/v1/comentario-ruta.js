@@ -10,6 +10,6 @@ router.post('/v1/comentario', authMiddleware, articuloComentarioMiddleware.valid
 router.get('/v1/comentario/:idComentario', articuloComentarioMiddleware.validateGetAndDel, comentarioControlador.get);
 router.patch('/v1/comentario/:idComentario', authMiddleware, articuloComentarioMiddleware.validateUpdateComentario, comentarioControlador.update);
 router.delete('/v1/comentario/:idComentario', authMiddleware, articuloComentarioMiddleware.validateGetAndDel, comentarioControlador.del);
-router.get('/v1/comentarios', comentarioControlador.list);
+router.get('/v1/comentarios/:idArticulo', comentarioControlador.list);
 
 export default router;
