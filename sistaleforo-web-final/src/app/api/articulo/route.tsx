@@ -1,5 +1,6 @@
 "use server"
-import axios from 'axios';
+import axios from '../../../../axios';
+import { isAxiosError } from 'axios';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
@@ -21,7 +22,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(data);
   } catch (error) {
-    if (axios.isAxiosError(error)) {
+    if (isAxiosError(error)) {
       if (error.response) {
         return new Response(error.response.data.message || 'Error desconocido al obtener los artículos', { status: error.response.status });
       }
