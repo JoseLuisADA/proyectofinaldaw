@@ -52,7 +52,7 @@ export async function del(req, res, next) {
 
 export async function list(req, res, next) {
   try {
-    const { idArticulo } = req.query;
+    const { idArticulo } = req.params;
     const comentarios = await ComentarioService.listComentariosPorArticulo(idArticulo);
     res.status(200).json(comentarios);
   } catch (error) {
