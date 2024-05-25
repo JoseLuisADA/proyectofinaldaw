@@ -8,29 +8,27 @@ const SignUpPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [validationError, setValidationError] = useState('');
-  const { register, isLoading, error } = useRegister(); // Usar el hook useRegister
+  const { register, isLoading, error, setError } = useRegister(); // Usar el hook useRegister
 
   const handleSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
     const result = userSchema.safeParse({ username, password, confirmPassword });
     if (!result.success) {
-      setValidationError(result.error.issues.map(issue => issue.message).join(", "));
+      setError(result.error.issues.map(issue => issue.message).join(", "));
       return;
     }
-    setValidationError('');
+    setError('');
     try {
       await register(username, password);
     } catch (err) {
       console.error('Error al registrarse:', err);
-      setValidationError('Error al registrarse. Por favor, inténtelo de nuevo.');
+      setError('Error al registrarse. Por favor, inténtelo de nuevo.');
     }
   };
 
   return (
-    <div className="w-full h-full">
-      <h2 className='text-center'>Registro</h2>
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSignUp}>
+    <div className='flex justify-center'>
+      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-[50rem] mt-14" onSubmit={handleSignUp}>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
             Usuario
@@ -82,8 +80,7 @@ const SignUpPage = () => {
             )}
           </button>
         </div>
-        {validationError && <p className="text-red-500 text-center font-bold italic">{validationError}</p>}
-        {error && <p className="text-red-500 text-center font-bold italic">{error}</p>}
+        {error && <p className="text-red-500 text-center font-bold italic mt-3">{error}</p>}
       </form>
     </div>
   );
