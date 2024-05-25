@@ -34,7 +34,7 @@ const useRegister = () => {
     }
   };
 
-  return { register, isLoading, error };
+  return { register, isLoading, error, setError };
 };
 
 export default useRegister;
