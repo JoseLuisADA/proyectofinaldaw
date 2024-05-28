@@ -2,13 +2,11 @@
 // hooks/useLogin.tsx
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Asegúrate de usar next/navigation
-import { useUserContext } from '../context/UserContext';
 
 const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const { handleSetUserUsername } = useUserContext();
 
   const login = async (username: string, password: string) => {
     setIsLoading(true);
@@ -26,7 +24,6 @@ const useLogin = () => {
         throw new Error(data.message || 'Error al iniciar sesión');
       }
 
-      handleSetUserUsername(username);  // Actualizamos el contexto con el nuevo username
       router.push('/');
     } catch (error) {
       setError(error.message);

@@ -1,14 +1,12 @@
 "use client"
 // hooks/useRegister.tsx
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Asegúrate de usar next/navigation
-import { useUserContext } from '../context/UserContext';
+import useLogin from './useLogin';
 
 const useRegister = () => {
+  const { login } = useLogin(); // Utilizamos el hook useLogin
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-  const { handleSetUserUsername } = useUserContext();
 
   const register = async (username: string, password: string) => {
     setIsLoading(true);
@@ -18,6 +16,7 @@ const useRegister = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
+        credentials: 'include' // Esto es importante para enviar cookies
       });
 
       const data = await response.json();
@@ -25,8 +24,7 @@ const useRegister = () => {
         throw new Error(data.message || 'Error al registrarse');
       }
 
-      handleSetUserUsername(username);
-      router.push('/');
+      await login(username, password);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -34,7 +32,7 @@ const useRegister = () => {
     }
   };
 
-  return { register, isLoading, error, setError };
+  return { register, isLoading, error };
 };
 
 export default useRegister;

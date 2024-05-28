@@ -4,10 +4,13 @@ import React, { useState } from 'react';
 import useArticulos from '../hooks/useArticulos';
 import { ArticuloProps } from '../types/articuloProps';
 import ComentariosList from './ComentariosList';
+import CreateComentarioForm from './CreateComentarioForm';
+import { useUserContext } from '../context/UserContext';
 
 const ArticulosList = () => {
   const [page, setPage] = useState(1);
   const { articulos, isLoading, error } = useArticulos(page);
+  const { user } = useUserContext();
 
   const handleNextPage = () => {
     setPage((prevPage) => prevPage + 1);
@@ -32,6 +35,7 @@ const ArticulosList = () => {
                 <p className="text-sm text-gray-500">Fecha: {new Date(articulo.fecha).toLocaleString()}</p>
                 <h6>Comentarios :</h6>
                 <ComentariosList idArticulo={articulo._id} />
+                {user.role === 'miembro' && <CreateComentarioForm idArticulo={articulo._id} />}
               </li>
             ))}
           </ul>
@@ -49,5 +53,7 @@ const ArticulosList = () => {
     </div>
   );
 };
+
+
 
 export default ArticulosList;
