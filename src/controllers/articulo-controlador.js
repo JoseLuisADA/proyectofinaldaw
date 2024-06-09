@@ -3,9 +3,9 @@ import * as ArticuloService from '../services/articulo-services.js';
 
 export async function create(req, res, next) {
   try { 
-    const { titulo, contenido } = req.body;
+    const { titulo, contenido, username } = req.body;
     await ArticuloService.createArticulo(titulo, contenido, username);
-    res.status(201).json(articulo);
+    res.status(201).json({ message: 'Artículo creado exitosamente' });
   } catch (error) {
     next(error);
   }
@@ -14,7 +14,7 @@ export async function create(req, res, next) {
 export async function get(req, res, next) {
   try {
     const { idArticulo } = req.params;
-    await ArticuloService.getArticuloById(idArticulo);
+    const articulo = await ArticuloService.getArticuloById(idArticulo);
     res.status(200).json(articulo);
   } catch (error) {
     next(error);
@@ -26,7 +26,7 @@ export async function update(req, res, next) {
     const { idArticulo } = req.params;
     const { titulo, contenido } = req.body;
     await ArticuloService.updateArticulo(idArticulo, titulo, contenido);
-    res.status(200).json(articulo);
+    res.status(200).json({ message: 'Artículo editado exitosamente' });
   } catch (error) {
     next(error);
   }
