@@ -4,10 +4,13 @@ import SistaleError from '../utils/SistaleError.js';
 
 export async function create(req, res, next) {
   try {
-    const { contenido, idArticulo } = req.body;
-    const username = req.user.username;
-    const comentario = await ComentarioService.createComentario(contenido, username, idArticulo);
-    res.status(201).json(comentario);
+
+    const { contenido, idArticulo, username } = req.body;
+
+    const comentario = await ComentarioService.createComentario(contenido, username, idArticulo)
+
+    res.status(201).json(comentario)
+
   } catch (error) {
     next(error);
   }
@@ -41,6 +44,7 @@ export async function update(req, res, next) {
 }
 
 export async function del(req, res, next) {
+  console.log("ENTRANDO A DEL COMENTARIO")
   try {
     const { idComentario } = req.params;
     await ComentarioService.deleteComentario(idComentario);
