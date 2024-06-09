@@ -6,9 +6,14 @@ dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export const authMiddleware = (req, res, next) => {
+  console.log("ENTRANDO EN AUTH MIDDLEWARE :")
+  console.log("REQ HEADERS:")
+  console.log(req.headers)
+  console.log("REQ HEADERS AUTHORIZATION:")
+  console.log(req.headers.authorization)
   // Obtener el token del encabezado de autorización
   const authHeader = req.headers.authorization;
-
+  
   // Rechazar la petición si no hay un encabezado de autorización
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ message: 'Acceso denegado, token no proporcionado' });
