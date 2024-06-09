@@ -1,40 +1,29 @@
-'use client'
-import React, { createContext, useContext, useState } from "react"
-import { UserProps } from "../types/userProps"
+//sistaleforo-web-final/src/context/UserContext.tsx
+'use client';
+import React, { createContext, useContext, useState } from 'react';
+import { UserProps } from '../types/userProps';
 
 export interface UserContextType {
-  user: { username: string }
-  setUser: React.Dispatch<React.SetStateAction<UserProps>>
-  handleSetUserUsername: (username: string) => void
+  user: UserProps;
+  setUser: React.Dispatch<React.SetStateAction<UserProps>>;
 }
 
-const UserContext = createContext<UserContextType | undefined>(undefined)
+const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  
-  const [user, setUser] = useState<UserProps>({
-    username: "",
-  })
-
-  const handleSetUserUsername = (username: string) => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      username,
-    }))
-  }
+  const [user, setUser] = useState<UserProps>({ username: '', role: '', token: '' });
 
   return (
-    <UserContext.Provider
-      value={{ user, setUser, handleSetUserUsername}}>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
     </UserContext.Provider>
-  )
-}
+  );
+};
 
 export const useUserContext = () => {
-  const context = useContext(UserContext)
+  const context = useContext(UserContext);
   if (!context) {
-    throw new Error("useUser must be used within a UserProvider")
+    throw new Error('useUserContext must be used within a UserProvider');
   }
-  return context
-}
+  return context;
+};
