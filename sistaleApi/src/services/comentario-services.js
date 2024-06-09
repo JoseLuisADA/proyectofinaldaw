@@ -10,23 +10,24 @@ export async function createComentario(contenido, username, idArticulo) {
 
 export async function getComentarioById(id) {
    const comentario = await ComentarioModel.findById(id);
-   if (!comentario) throw SistaleError.notFound('Comentario no encontrado');
+   if (!comentario) throw SistaleError.badRequest('Comentario no encontrado');
    return comentario;
 }
 
 export async function updateComentario(id, contenido) {
   const comentario = await ComentarioModel.findByIdAndUpdate(id, { contenido }, { new: true });
-  if (!comentario) throw SistaleError.notFound('Comentario no encontrado');
+  if (!comentario) throw SistaleError.badRequest('Comentario no encontrado');
   return comentario;
 }
 
 export async function deleteComentario(id) {
   const comentario = await ComentarioModel.findByIdAndDelete(id);
-  if (!comentario) throw SistaleError.notFound('Comentario no encontrado');
+  if (!comentario) throw SistaleError.badRequest('Comentario no encontrado');
   return true;
 }
 
 export async function listComentariosPorArticulo(idArticulo) {
   const comentarios = await ComentarioModel.find({ idArticulo });
+  if (!comentarios) throw SistaleError.badRequest('No hay comentarios para este artículo');
   return comentarios;
 }
