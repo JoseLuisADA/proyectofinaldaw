@@ -5,7 +5,7 @@ export async function create(req, res, next) {
   try {
     console.log("ENTRANDO EN CREAR COMENTARIO")
     const { contenido, idArticulo, username } = req.body;
-    const comentario = await ComentarioService.createComentario(contenido, username, idArticulo)
+    await ComentarioService.createComentario(contenido, username, idArticulo)
     res.status(201).json(comentario)
   } catch (error) {
     next(error);
@@ -15,7 +15,7 @@ export async function create(req, res, next) {
 export async function get(req, res, next) {
   try {
     const { idComentario } = req.params;
-    const comentario = await ComentarioService.getComentarioById(idComentario);
+    await ComentarioService.getComentarioById(idComentario);
     res.status(200).json(comentario);
   } catch (error) {
     next(error);
@@ -26,7 +26,7 @@ export async function update(req, res, next) {
   try {
     const { idComentario } = req.params;
     const { contenido } = req.body;
-    const comentario = await ComentarioService.updateComentario(idComentario, contenido);
+    await ComentarioService.updateComentario(idComentario, contenido);
     res.status(200).json({ Mensaje: 'Comentario actualizado exitosamente' });
   } catch (error) {
     next(error);
