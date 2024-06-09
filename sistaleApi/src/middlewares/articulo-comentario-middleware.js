@@ -2,8 +2,19 @@
 import { body, validationResult, query, param } from 'express-validator';
 import SistaleError from '../utils/SistaleError.js';
 
-export const validateGetAndDel = [
+export const validateGetAndDelArticulo = [
   param('idArticulo').isMongoId().withMessage('El ID del artículo no es válido'),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(SistaleError.badRequest(errors.array().map(err => err.msg).join('. ')));
+    }
+    next();
+  },
+];
+
+export const validateGetAndDelComentario = [
+  param('idComentario').isMongoId().withMessage('El ID del comentario no es válido'),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
