@@ -4,7 +4,7 @@ import SistaleError from '../utils/SistaleError.js';
 
 export async function create(req, res, next) {
   try {
-
+    console.log("ENTRANDO EN CREAR COMENTARIO")
     const { contenido, idArticulo, username } = req.body;
 
     const comentario = await ComentarioService.createComentario(contenido, username, idArticulo)
@@ -21,7 +21,7 @@ export async function get(req, res, next) {
     const { idComentario } = req.params;
     const comentario = await ComentarioService.getComentarioById(idComentario);
     if (!comentario) {
-      throw SistaleError.notFound('Comentario no encontrado');
+      throw SistaleError.badRequest('Comentario no encontrado');
     }
     res.status(200).json(comentario);
   } catch (error) {
@@ -35,7 +35,7 @@ export async function update(req, res, next) {
     const { contenido } = req.body;
     const comentario = await ComentarioService.updateComentario(idComentario, contenido);
     if (!comentario) {
-      throw SistaleError.notFound('Comentario no encontrado para actualizar');
+      throw SistaleError.badRequest('Comentario no encontrado para actualizar');
     }
     res.status(200).json(comentario);
   } catch (error) {
