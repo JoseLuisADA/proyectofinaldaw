@@ -6,7 +6,7 @@ export async function create(req, res, next) {
     console.log("ENTRANDO EN CREAR COMENTARIO")
     const { contenido, idArticulo, username } = req.body;
     await ComentarioService.createComentario(contenido, username, idArticulo)
-    res.status(201).json(comentario)
+    res.status(201).json({ message: 'Comentario creado exitosamente' })
   } catch (error) {
     next(error);
   }
@@ -27,7 +27,7 @@ export async function update(req, res, next) {
     const { idComentario } = req.params;
     const { contenido } = req.body;
     await ComentarioService.updateComentario(idComentario, contenido);
-    res.status(200).json({ Mensaje: 'Comentario actualizado exitosamente' });
+    res.status(200).json({ message: 'Comentario actualizado exitosamente' });
   } catch (error) {
     next(error);
   }
@@ -37,7 +37,7 @@ export async function del(req, res, next) {
   try {
     const { idComentario } = req.params;
     await ComentarioService.deleteComentario(idComentario);
-    res.status(200).json({ Mensaje: 'Comentario eliminado exitosamente' });
+    res.status(200).json({ message: 'Comentario eliminado exitosamente' });
   } catch (error) {
     next(error);
   }
