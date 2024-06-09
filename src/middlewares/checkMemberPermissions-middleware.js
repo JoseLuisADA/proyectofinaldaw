@@ -9,7 +9,7 @@ export async function checkMemberPermissions(req, res, next) {
   
   try {
     if (!user) throw SistaleError.unauthorized("No autorizado")
-    if (user.role !== "miembro") throw SistaleError.unauthorized("No autorizado")
+    if (user.role !== "miembro" && user.role !== "admin") throw SistaleError.unauthorized("No autorizado")
     next()
   }
   catch (error) {
