@@ -1,12 +1,10 @@
 // src/controllers/articulo-controlador.js
 import * as ArticuloService from '../services/articulo-services.js';
-import SistaleError from '../utils/SistaleError.js';
 
 export async function create(req, res, next) {
-  try {
+  try { 
     const { titulo, contenido } = req.body;
-    const username = req.user.username;
-    const articulo = await ArticuloService.createArticulo(titulo, contenido, username);
+    await ArticuloService.createArticulo(titulo, contenido, username);
     res.status(201).json(articulo);
   } catch (error) {
     next(error);
@@ -16,10 +14,7 @@ export async function create(req, res, next) {
 export async function get(req, res, next) {
   try {
     const { idArticulo } = req.params;
-    const articulo = await ArticuloService.getArticuloById(idArticulo);
-    if (!articulo) {
-      throw SistaleError.notFound('Artículo no encontrado');
-    }
+    await ArticuloService.getArticuloById(idArticulo);
     res.status(200).json(articulo);
   } catch (error) {
     next(error);
@@ -30,10 +25,7 @@ export async function update(req, res, next) {
   try {
     const { idArticulo } = req.params;
     const { titulo, contenido } = req.body;
-    const articulo = await ArticuloService.updateArticulo(idArticulo, titulo, contenido);
-    if (!articulo) {
-      throw SistaleError.notFound('Artículo no encontrado para actualizar');
-    }
+    await ArticuloService.updateArticulo(idArticulo, titulo, contenido);
     res.status(200).json(articulo);
   } catch (error) {
     next(error);
@@ -44,7 +36,7 @@ export async function del(req, res, next) {
   try {
     const { idArticulo } = req.params;
     await ArticuloService.deleteArticulo(idArticulo);
-    res.status(200).json({ Mensaje: 'Artículo eliminado exitosamente' });
+    res.status(200).json({ message: 'Artículo eliminado exitosamente' });
   } catch (error) {
     next(error);
   }
