@@ -12,7 +12,7 @@ export default function(server){
 
     /* CORS */
 
-    const allowedOrigins = ['*', 'http://localhost:3000', 'http://localhost:4000']
+    /*const allowedOrigins = ['*', 'http://localhost:3000', 'http://localhost:4000']
 
     const corsOptions = {
         origin: function (origin, callback) {
@@ -23,7 +23,12 @@ export default function(server){
             }
         },
         credentials: true,
-    }
+    }*/
+
+    const corsOptions = {
+        origin: true, // Permitir todas las solicitudes
+        credentials: true,
+    };
     
     /* SERVER USES */
 
