@@ -41,7 +41,7 @@ export async function login(req, res, next) {
     if (!token) throw SistaleError.unauthorized('Credenciales inválidas');
     
     // Configura la cookie segura con el token
-    res.cookie('session', token, { // Aquí 'session' es el nombre de la cookie y 'token' el valor
+    res.cookie('sistale', token, { // Aquí 'session' es el nombre de la cookie y 'token' el valor
       httpOnly: true, // La cookie no es accesible vía JavaScript en el cliente
       secure: true,
       maxAge: 3600000, // 1 hora
