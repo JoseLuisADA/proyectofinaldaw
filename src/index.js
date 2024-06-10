@@ -2,6 +2,6 @@
 import app from './app.js';
 import 'dotenv/config';
 
-export default app.listen(3001, () => {
-    console.log("Server is listening on port 3001");
+export default app.listen(3002, () => {
+    console.log("Server is listening on port 3002");
 });
