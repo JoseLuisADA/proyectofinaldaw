@@ -12,6 +12,6 @@ router.post('/v1/comentario', authMiddleware, checkMemberPermissions, articuloCo
 router.get('/v1/comentario/:idComentario', articuloComentarioMiddleware.validateGetAndDelComentario, comentarioControlador.get);
 router.patch('/v1/comentario/:idComentario', authMiddleware, checkAdminPermissions, articuloComentarioMiddleware.validateUpdateComentario, comentarioControlador.update);
 router.delete('/v1/comentario/:idComentario', authMiddleware, checkAdminPermissions, articuloComentarioMiddleware.validateGetAndDelComentario, comentarioControlador.del);
-router.get('/v1/comentarios/:idArticulo', comentarioControlador.list);
+router.get('/v1/comentarios/:idArticulo', articuloComentarioMiddleware.validateGetAndDelArticulo, comentarioControlador.list);
 
 export default router;
