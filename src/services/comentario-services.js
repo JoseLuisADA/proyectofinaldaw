@@ -27,7 +27,8 @@ export async function deleteComentario(id) {
 }
 
 export async function listComentariosPorArticulo(idArticulo) {
-  const comentarios = await ComentarioModel.find({ idArticulo });
+  const comentarios = await ComentarioModel.find({ idArticulo })
+    .sort({ fecha: -1 });
   if (!comentarios) throw SistaleError.badRequest('No hay comentarios para este artículo');
   return comentarios;
 }

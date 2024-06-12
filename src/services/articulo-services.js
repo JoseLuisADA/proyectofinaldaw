@@ -37,6 +37,7 @@ export async function deleteArticulo(id) {
 export async function listArticulos(page, size, categoria) {
   const query = categoria ? { categoria } : {};
   const articulos = await ArticuloModel.find(query)
+    .sort({ fecha: -1 })
     .limit(size)
     .skip(size * (page - 1));
   const total = await ArticuloModel.countDocuments(query);
