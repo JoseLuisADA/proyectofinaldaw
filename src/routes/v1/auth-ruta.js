@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post('/v1/login', authController.login);
 router.post('/v1/register', authController.register);
+router.put('/v1/change-password-recovery', authMiddleware, authController.recoveryPassword);
 router.put('/v1/change-password', authMiddleware, authController.changePassword);
 router.put('/v1/reset-password', authMiddleware, authController.resetPassword);
 router.post('/v1/recover-password', authController.sendPasswordRecoveryEmail);

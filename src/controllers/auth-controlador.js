@@ -73,6 +73,19 @@ export async function resetPassword(req, res, next) {
   }
 }
 
+export async function recoveryPassword(req, res, next) {
+  try {
+    const { newPassword } = req.body;
+    const { username } = req.user;
+
+    await AuthService.recoveryPassword(username, newPassword);
+    res.status(200).json({ message: 'Contraseña cambiada con éxito' });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+    next(error);
+  }
+}
+
 export async function changePassword(req, res, next) {
   try {
     const { newPassword, oldPassword } = req.body;

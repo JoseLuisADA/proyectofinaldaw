@@ -65,6 +65,20 @@ export async function changePassword(username, oldPassword, newPassword) {
   await cuenta.save()
 }
 
+export async function recoveryPassword(username, newPassword) {
+
+  if (!newPassword) throw SistaleError.badRequest('Asegúrate de que todos los campos estén rellenos')
+  if (newPassword.length < 1) throw SistaleError.badRequest('La nueva contraseña debe tener al menos 1 caracter')
+
+  const cuenta = await CuentaModel.findOne({ username })
+  if (!cuenta) throw SistaleError.unauthorized('Error al intentar cambiar la contraseña, trate de iniciar sesión nuevamente')
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(newPassword, salt)
+  cuenta.password = hashedPassword
+  await cuenta.save()
+}
+
 export async function sendPasswordRecoveryEmail(token, email) {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -80,7 +94,7 @@ export async function sendPasswordRecoveryEmail(token, email) {
     from: process.env.RECOVER_PASSWORD_EMAIL_SENDER_USER,
     to: email,
     subject: 'Sistale : Recuperación de contraseña',
-    text: `Haz clic en el siguiente enlace para restablecer tu contraseña: \n \n
+    text: `Haz clic en el siguiente enlace para restablecer tu contraseña: \n
     
     ${process.env.CLIENT_URL}/reset-password/${token}`,
   };
