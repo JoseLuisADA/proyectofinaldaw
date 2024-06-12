@@ -71,13 +71,13 @@ export async function sendPasswordRecoveryEmail(token, email) {
     port: 465,
     secure: true,
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
+      user: process.env.RECOVER_PASSWORD_EMAIL_SENDER_USER,
+      pass: process.env.RECOVER_PASSWORD_EMAIL_SENDER__PASS,
     },
   });
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,
+    from: process.env.RECOVER_PASSWORD_EMAIL_SENDER_USER,
     to: email,
     subject: 'Sistale : Recuperación de contraseña',
     text: `Haz clic en el siguiente enlace para restablecer tu contraseña: \n \n
