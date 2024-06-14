@@ -4,8 +4,8 @@ info:
   version: 1.0.0
   title: Sistale Foro API
 servers:
-  #- url: https://sistaleapi.onrender.com/v1
-  - url: http://localhost:4000/v1
+  - url: https://sistaleapi.onrender.com/v1
+  #- url: http://localhost:4000/v1
 components:
   securitySchemes:
     BearerAuth:
@@ -100,6 +100,12 @@ paths:
         - Artículo
       summary: Actualizar artículo
       description: Actualiza los detalles de un artículo específico
+      parameters:
+        - name: idArticulo
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -327,7 +333,7 @@ paths:
           description: Usuario no encontrado
       security:
         - BearerAuth: []
-  /user/{username}/role:
+  /{username}/role:
     patch:
       tags:
         - Autenticación
@@ -368,12 +374,10 @@ paths:
             schema:
               type: object
               properties:
-                contenido:
-                  type: string
                 idArticulo:
                   type: string
-                username:
-                  type: string
+                contenido:
+                  type: string  
       responses:
         '201':
           description: Comentario creado exitosamente
@@ -403,6 +407,12 @@ paths:
         - Comentario
       summary: Actualizar comentario
       description: Actualiza los detalles de un comentario específico
+      parameters:
+        - name: idComentario
+          in: path
+          required: true
+          schema:
+            type: string
       requestBody:
         required: true
         content:
