@@ -74,7 +74,7 @@ export const validateCreateComentario = [
 ];
 
 export const validateUpdateComentario = [
-  param('idArticulo').isMongoId().withMessage('El ID del artículo no es válido'),
+  param('idComentario').isMongoId().withMessage('El ID del comentario no es válido'),
   body('contenido').notEmpty().withMessage('El contenido no puede estar vacío.'),
   (req, res, next) => {
     const errors = validationResult(req);
