@@ -3,8 +3,8 @@ import * as ComentarioService from '../services/comentario-services.js';
 
 export async function create(req, res, next) {
   try {
-    console.log("ENTRANDO EN CREAR COMENTARIO")
-    const { contenido, idArticulo, username } = req.body;
+    const { contenido, idArticulo } = req.body;
+    const { username } = req.user;
     await ComentarioService.createComentario(contenido, username, idArticulo)
     res.status(201).json({ message: 'Comentario creado exitosamente' })
   } catch (error) {
