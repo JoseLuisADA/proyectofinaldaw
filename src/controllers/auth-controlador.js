@@ -24,8 +24,11 @@ export async function register(req, res, next) {
       throw SistaleError.badRequest('El nombre de usuario debe tener al menos 1 caracter');
     } else if (!isValidEmail(email)) {
       throw SistaleError.badRequest('El email no es válido');
+    } else if (username.length > 20) {
+      throw SistaleError.badRequest('El nombre de usuario no puede tener más de 20 caracteres');
+    } else if (username.contains(' ')) {
+      throw SistaleError.badRequest('El nombre de usuario no puede contener espacios');
     }
-
     // Registrar el usuario
     await AuthService.register(username, password, email);
     res.status(201).json({ message: 'Cuenta creada' });
@@ -139,9 +142,11 @@ export async function getAllUsers(req, res, next) {
 export async function deleteUser(req, res, next) {
   try {
     const { username } = req.params;
+    console.log(username)
     await AuthService.deleteUser(username);
     res.status(200).json({ message: 'Usuario eliminado con éxito' });
   } catch (error) {
+    console.log(error)
     next(error);
   }
 }
