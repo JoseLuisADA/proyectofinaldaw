@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import SistaleError from '../utils/SistaleError.js';
+import { isValidEmail } from '../utils/validateEmail.js';
 
 dotenv.config();
 
@@ -27,7 +28,7 @@ export async function register(username, password, email) {
     throw SistaleError.badRequest('El email no es válido');
   } else if (username.length > 20) {
     throw SistaleError.badRequest('El nombre de usuario no puede tener más de 20 caracteres');
-  } else if (toString(username).includes(' ')) {
+  } else if (username.includes(' ')) {
     throw SistaleError.badRequest('El nombre de usuario no puede contener espacios');
   }
 
