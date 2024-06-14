@@ -16,7 +16,7 @@ export const authMiddleware = (req, res, next) => {
   
   // Rechazar la petición si no hay un encabezado de autorización
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'Acceso denegado, token no proporcionado' });
+    return res.status(401).json({ message: 'Acceso denegado, token no proporcionado o mal formado' });
   }
 
   // Extraer el token del encabezado
