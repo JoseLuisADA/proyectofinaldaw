@@ -6,11 +6,31 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import SistaleError from '../utils/SistaleError.js';
 
-dotenv.config(); // Esto carga las variables de entorno del archivo .env
+dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export async function register(username, password, email) {
+
+  const existingUser = await CuentaModel.findOne({ username });
+  if (existingUser) {
+    throw SistaleError.conflict('El usuario ya está creado');
+  }
+
+  if (!username || !password || !email) {
+    throw SistaleError.badRequest('Asegúrate de que todos los campos estén rellenos');
+  } else if (password.length < 1) {
+    throw SistaleError.badRequest('La contraseña debe tener al menos 1 caracter');
+  } else if (username.length < 1) {
+    throw SistaleError.badRequest('El nombre de usuario debe tener al menos 1 caracter');
+  } else if (!isValidEmail(email)) {
+    throw SistaleError.badRequest('El email no es válido');
+  } else if (username.length > 20) {
+    throw SistaleError.badRequest('El nombre de usuario no puede tener más de 20 caracteres');
+  } else if (toString(username).includes(' ')) {
+    throw SistaleError.badRequest('El nombre de usuario no puede contener espacios');
+  }
+
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const newUser = new CuentaModel({
@@ -79,7 +99,16 @@ export async function recoveryPassword(username, newPassword) {
   await cuenta.save()
 }
 
-export async function sendPasswordRecoveryEmail(token, email) {
+export async function sendPasswordRecoveryEmail(username) {
+  if (!username) {
+    throw SistaleError.badRequest('El campo de usuario no puede estar vacío');
+  }
+  const user = await CuentaModel.findOne({ username });
+  if (!user) {
+    throw SistaleError.notFound('Usuario no encontrado');
+  }
+  const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -92,7 +121,7 @@ export async function sendPasswordRecoveryEmail(token, email) {
 
   const mailOptions = {
     from: process.env.RECOVER_PASSWORD_EMAIL_SENDER_USER,
-    to: email,
+    to: user.email,
     subject: 'Sistale : Recuperación de contraseña',
     text: `Haz clic en el siguiente enlace para restablecer tu contraseña: \n
     
