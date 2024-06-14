@@ -107,9 +107,4 @@ Una vez que el servidor esté en funcionamiento, puedes realizar solicitudes a l
 ## Contribuciones
 
 Se aceptan contribuciones. Por favor, crea un pull request para revisar tu propuesta.
-
-## Licencia
-
-Este proyecto está licenciado bajo la licencia MIT. Consulta el archivo `LICENSE` para obtener más información.
-
 ---
