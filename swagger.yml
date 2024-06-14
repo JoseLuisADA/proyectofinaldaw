@@ -6,7 +6,7 @@ info:
 host: sistaleapi.onrender.com
 basePath: /v1
 schemes:
-  - http
+  - https
 securityDefinitions:
   Bearer:
     type: apiKey
