@@ -2,8 +2,9 @@ import * as ArticuloService from '../services/articulo-services.js';
 
 export async function create(req, res, next) {
   try { 
-    const { titulo, contenido, username, categoria } = req.body; // Añadir categoría
-    await ArticuloService.createArticulo(titulo, contenido, username, categoria); // Pasar categoría al servicio
+    const { titulo, contenido, categoria } = req.body;
+    const { username } = req.user;
+    await ArticuloService.createArticulo(titulo, contenido, categoria, username); // Pasar categoría al servicio
     res.status(201).json({ message: 'Artículo creado exitosamente' });
   } catch (error) {
     next(error);

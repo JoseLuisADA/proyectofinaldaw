@@ -1,7 +1,7 @@
 import ArticuloModel from '../models/articulo-modelo.js';
 import SistaleError from '../utils/SistaleError.js';
 
-export async function createArticulo(titulo, contenido, username, categoria) {
+export async function createArticulo(titulo, contenido, categoria, username) {
   const articulo = new ArticuloModel({
     titulo,
     contenido,
