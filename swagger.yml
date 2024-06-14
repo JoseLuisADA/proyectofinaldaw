@@ -43,6 +43,8 @@ paths:
           description: Artículo creado exitosamente
         '400':
           description: Datos inválidos
+      security:
+        - Bearer: []
   /articulo/{idArticulo}:
     get:
       tags:
@@ -91,6 +93,8 @@ paths:
           description: Artículo actualizado exitosamente
         '404':
           description: Artículo no encontrado
+      security:
+        - Bearer: []
     delete:
       tags:
         - Artículo
@@ -108,6 +112,8 @@ paths:
           description: Artículo eliminado exitosamente
         '404':
           description: Artículo no encontrado
+      security:
+        - Bearer: []
   /articulos:
     get:
       tags:
@@ -229,6 +235,35 @@ paths:
           description: Contraseña cambiada exitosamente
         '400':
           description: Datos inválidos
+      security:
+        - Bearer: []
+  /change-password-recovery:
+    put:
+      tags:
+        - Autenticación
+      summary: Cambiar contraseña con recuperación
+      description: Permite cambiar la contraseña mediante recuperación
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Datos para cambiar la contraseña
+          required: true
+          schema:
+            type: object
+            properties:
+              newPassword:
+                type: string
+      responses:
+        '200':
+          description: Contraseña cambiada exitosamente
+        '400':
+          description: Datos inválidos
+      security:
+        - Bearer: []
   /recover-password:
     post:
       tags:
@@ -271,6 +306,8 @@ paths:
               $ref: '#/definitions/User'
         '404':
           description: No se encontraron usuarios
+      security:
+        - Bearer: []
   /user/{username}:
     delete:
       tags:
@@ -289,6 +326,39 @@ paths:
           description: Usuario eliminado exitosamente
         '404':
           description: Usuario no encontrado
+      security:
+        - Bearer: []
+  /{username}/role:
+    patch:
+      tags:
+        - Autenticación
+      summary: Actualizar rol de usuario
+      description: Actualiza el rol de un usuario específico
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: username
+          in: path
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Nuevo rol del usuario
+          required: true
+          schema:
+            type: object
+            properties:
+              newRole:
+                type: string
+      responses:
+        '200':
+          description: Rol de usuario actualizado exitosamente
+        '404':
+          description: Usuario no encontrado
+      security:
+        - Bearer: []
   /comentario:
     post:
       tags:
@@ -318,6 +388,8 @@ paths:
           description: Comentario creado exitosamente
         '400':
           description: Datos inválidos
+      security:
+        - Bearer: []
   /comentario/{idComentario}:
     get:
       tags:
@@ -336,6 +408,8 @@ paths:
           description: Comentario encontrado
         '404':
           description: Comentario no encontrado
+      security:
+        - Bearer: []
     patch:
       tags:
         - Comentario
@@ -381,6 +455,8 @@ paths:
           description: Comentario eliminado exitosamente
         '404':
           description: Comentario no encontrado
+      security:
+        - Bearer: []
   /comentarios/{idArticulo}:
     get:
       tags:
@@ -403,7 +479,6 @@ paths:
               $ref: '#/definitions/Comentario'
         '404':
           description: No se encontraron comentarios
-
 definitions:
   Articulo:
     type: object
