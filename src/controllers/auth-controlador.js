@@ -47,7 +47,7 @@ export async function login(req, res, next) {
       maxAge: 3600000, // 1 hora
       sameSite: 'Lax' // Asegúrate de que sameSite está configurado
     });
-    res.status(200).json({ message: 'Se ha realizado login con éxito' });
+    res.status(200).json({ message: 'Se ha realizado login con éxito', token: token });
   } catch (error) {
     next(error);
   }
