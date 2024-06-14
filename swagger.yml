@@ -1,17 +1,54 @@
-swagger: '2.0'
+openapi: 3.0.0
 info:
   description: Colección de API para el proyecto
   version: 1.0.0
   title: Sistale Foro API
-host: sistaleapi.onrender.com
-basePath: /v1
-schemes:
-  - https
-securityDefinitions:
-  Bearer:
-    type: apiKey
-    name: authorization
-    in: header
+servers:
+  #- url: https://sistaleapi.onrender.com/v1
+  - url: http://localhost:4000/v1
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Articulo:
+      type: object
+      properties:
+        id:
+          type: string
+        titulo:
+          type: string
+        contenido:
+          type: string
+        username:
+          type: string
+        categoria:
+          type: string
+    Comentario:
+      type: object
+      properties:
+        id:
+          type: string
+        contenido:
+          type: string
+        idArticulo:
+          type: string
+        username:
+          type: string
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+
+security:
+  - BearerAuth: []
 
 paths:
   /articulo:
@@ -20,136 +57,124 @@ paths:
         - Artículo
       summary: Crear artículo
       description: Crea un nuevo artículo
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Datos del artículo a crear
-          required: true
-          schema:
-            type: object
-            properties:
-              titulo:
-                type: string
-              contenido:
-                type: string
-              categoria:
-                type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                titulo:
+                  type: string
+                contenido:
+                  type: string
+                categoria:
+                  type: string
       responses:
         '201':
           description: Artículo creado exitosamente
         '400':
           description: Datos inválidos
       security:
-        - Bearer: []
+        - BearerAuth: []
   /articulo/{idArticulo}:
     get:
       tags:
         - Artículo
       summary: Obtener artículo por ID
       description: Obtiene los detalles de un artículo específico
-      produces:
-        - application/json
       parameters:
         - name: idArticulo
           in: path
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: Artículo encontrado
         '404':
           description: Artículo no encontrado
+
     patch:
       tags:
         - Artículo
       summary: Actualizar artículo
       description: Actualiza los detalles de un artículo específico
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: idArticulo
-          in: path
-          required: true
-          type: string
-        - in: body
-          name: body
-          description: Datos del artículo a actualizar
-          required: true
-          schema:
-            type: object
-            properties:
-              titulo:
-                type: string
-              contenido:
-                type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                titulo:
+                  type: string
+                contenido:
+                  type: string
       responses:
         '200':
           description: Artículo actualizado exitosamente
         '404':
           description: Artículo no encontrado
       security:
-        - Bearer: []
+        - BearerAuth: []
     delete:
       tags:
         - Artículo
       summary: Eliminar artículo
       description: Elimina un artículo específico
-      produces:
-        - application/json
       parameters:
         - name: idArticulo
           in: path
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: Artículo eliminado exitosamente
         '404':
           description: Artículo no encontrado
       security:
-        - Bearer: []
+        - BearerAuth: []
   /articulos:
     get:
       tags:
         - Artículo
       summary: Listar artículos
       description: Recupera una lista de artículos
-      produces:
-        - application/json
       parameters:
         - name: page
           in: query
           description: Número de páginas para la paginación
           required: false
-          type: integer
+          schema:
+            type: integer
         - name: size
           in: query
           description: Tamaño de la página para la paginación
           required: false
-          type: integer
+          schema:
+            type: integer
         - name: categoria
           in: query
           description: Filtrar por categoría
           required: false
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: Artículos listados exitosamente
-          schema:
-            type: object
-            properties:
-              total:
-                type: integer
-              articulos:
-                type: array
-                items:
-                  $ref: '#/definitions/Articulo'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                  articulos:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Articulo'
         '404':
           description: No se encontraron artículos
   /register:
@@ -158,24 +183,19 @@ paths:
         - Autenticación
       summary: Registro de usuario
       description: Permite registrar un nuevo usuario
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Datos del usuario a registrar
-          required: true
-          schema:
-            type: object
-            properties:
-              username:
-                type: string
-              password:
-                type: string
-              email:
-                type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
       responses:
         '201':
           description: Registro exitoso
@@ -187,22 +207,17 @@ paths:
         - Autenticación
       summary: Autenticación de usuario
       description: Permite a un usuario autenticarse en la aplicación
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Credenciales del usuario
-          required: true
-          schema:
-            type: object
-            properties:
-              username:
-                type: string
-              password:
-                type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
       responses:
         '200':
           description: Autenticación exitosa
@@ -214,76 +229,61 @@ paths:
         - Autenticación
       summary: Cambiar contraseña
       description: Permite cambiar la contraseña del usuario
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Datos para cambiar la contraseña
-          required: true
-          schema:
-            type: object
-            properties:
-              oldPassword:
-                type: string
-              newPassword:
-                type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                newPassword:
+                  type: string
       responses:
         '200':
           description: Contraseña cambiada exitosamente
         '400':
           description: Datos inválidos
       security:
-        - Bearer: []
+        - BearerAuth: []
   /change-password-recovery:
     put:
       tags:
         - Autenticación
       summary: Cambiar contraseña con recuperación
       description: Permite cambiar la contraseña mediante recuperación
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Datos para cambiar la contraseña
-          required: true
-          schema:
-            type: object
-            properties:
-              newPassword:
-                type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newPassword:
+                  type: string
       responses:
         '200':
           description: Contraseña cambiada exitosamente
         '400':
           description: Datos inválidos
       security:
-        - Bearer: []
+        - BearerAuth: []
   /recover-password:
     post:
       tags:
         - Autenticación
       summary: Recuperar contraseña
       description: Enviar correo de recuperación de contraseña
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Nombre de usuario para recuperar la contraseña
-          required: true
-          schema:
-            type: object
-            properties:
-              username:
-                type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
       responses:
         '200':
           description: Correo de recuperación enviado
@@ -295,221 +295,168 @@ paths:
         - Autenticación
       summary: Obtener todos los usuarios
       description: Recupera una lista de todos los usuarios
-      produces:
-        - application/json
       responses:
         '200':
           description: Usuarios listados exitosamente
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/User'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
         '404':
           description: No se encontraron usuarios
       security:
-        - Bearer: []
+        - BearerAuth: []
   /user/{username}:
     delete:
       tags:
         - Autenticación
       summary: Eliminar usuario
       description: Elimina un usuario específico
-      produces:
-        - application/json
       parameters:
         - name: username
           in: path
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: Usuario eliminado exitosamente
         '404':
           description: Usuario no encontrado
       security:
-        - Bearer: []
-  /{username}/role:
+        - BearerAuth: []
+  /user/{username}/role:
     patch:
       tags:
         - Autenticación
       summary: Actualizar rol de usuario
       description: Actualiza el rol de un usuario específico
-      consumes:
-        - application/json
-      produces:
-        - application/json
       parameters:
         - name: username
           in: path
           required: true
-          type: string
-        - in: body
-          name: body
-          description: Nuevo rol del usuario
-          required: true
           schema:
-            type: object
-            properties:
-              newRole:
-                type: string
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                newRole:
+                  type: string
       responses:
         '200':
           description: Rol de usuario actualizado exitosamente
         '404':
           description: Usuario no encontrado
       security:
-        - Bearer: []
+        - BearerAuth: []
   /comentario:
     post:
       tags:
         - Comentario
       summary: Crear comentario
       description: Crea un nuevo comentario
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Datos del comentario a crear
-          required: true
-          schema:
-            type: object
-            properties:
-              contenido:
-                type: string
-              idArticulo:
-                type: string
-              username:
-                type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contenido:
+                  type: string
+                idArticulo:
+                  type: string
+                username:
+                  type: string
       responses:
         '201':
           description: Comentario creado exitosamente
         '400':
           description: Datos inválidos
       security:
-        - Bearer: []
+        - BearerAuth: []
   /comentario/{idComentario}:
     get:
       tags:
         - Comentario
       summary: Obtener comentario por ID
       description: Obtiene los detalles de un comentario específico
-      produces:
-        - application/json
       parameters:
         - name: idComentario
           in: path
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: Comentario encontrado
         '404':
           description: Comentario no encontrado
-      security:
-        - Bearer: []
     patch:
       tags:
         - Comentario
       summary: Actualizar comentario
       description: Actualiza los detalles de un comentario específico
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: idComentario
-          in: path
-          required: true
-          type: string
-        - in: body
-          name: body
-          description: Datos del comentario a actualizar
-          required: true
-          schema:
-            type: object
-            properties:
-              contenido:
-                type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                contenido:
+                  type: string
       responses:
         '200':
           description: Comentario actualizado exitosamente
         '404':
           description: Comentario no encontrado
+      security:
+        - BearerAuth: []
     delete:
       tags:
         - Comentario
       summary: Eliminar comentario
       description: Elimina un comentario específico
-      produces:
-        - application/json
       parameters:
         - name: idComentario
           in: path
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: Comentario eliminado exitosamente
         '404':
           description: Comentario no encontrado
       security:
-        - Bearer: []
+        - BearerAuth: []
   /comentarios/{idArticulo}:
     get:
       tags:
         - Comentario
       summary: Listar comentarios por artículo
       description: Recupera una lista de comentarios para un artículo específico
-      produces:
-        - application/json
       parameters:
         - name: idArticulo
           in: path
           required: true
-          type: string
+          schema:
+            type: string
       responses:
         '200':
           description: Comentarios listados exitosamente
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Comentario'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comentario'
         '404':
           description: No se encontraron comentarios
-definitions:
-  Articulo:
-    type: object
-    properties:
-      id:
-        type: string
-      titulo:
-        type: string
-      contenido:
-        type: string
-      username:
-        type: string
-      categoria:
-        type: string
-  Comentario:
-    type: object
-    properties:
-      id:
-        type: string
-      contenido:
-        type: string
-      idArticulo:
-        type: string
-      username:
-        type: string
-  User:
-    type: object
-    properties:
-      username:
-        type: string
-      email:
-        type: string
-      role:
-        type: string
