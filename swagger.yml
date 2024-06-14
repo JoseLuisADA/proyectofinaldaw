@@ -1,34 +1,194 @@
 swagger: '2.0'
 info:
-  description: Foro de Sistale API para desarrolladores
+  description: Colección de API para el proyecto
   version: 1.0.0
-  title: Foro de Sistale API
-host: localhost:3000
-basePath: /
+  title: Sistale Foro API
+host: sistaleapi.onrender.com
+basePath: /v1
 schemes:
   - http
-
 securityDefinitions:
   Bearer:
     type: apiKey
     name: authorization
     in: header
-    
+
 paths:
-  /v1/login:
+  /articulo:
     post:
       tags:
-        - Cuenta
-      summary: Autenticación de usuario
-      description: Permite a un usuario autenticarse en la aplicación.
+        - Artículo
+      summary: Crear artículo
+      description: Crea un nuevo artículo
       consumes:
         - application/json
       produces:
         - application/json
       parameters:
         - in: body
-          name: Credenciales
-          description: Iniciar sesión
+          name: body
+          description: Datos del artículo a crear
+          required: true
+          schema:
+            type: object
+            properties:
+              titulo:
+                type: string
+              contenido:
+                type: string
+              categoria:
+                type: string
+      responses:
+        '201':
+          description: Artículo creado exitosamente
+        '400':
+          description: Datos inválidos
+  /articulo/{idArticulo}:
+    get:
+      tags:
+        - Artículo
+      summary: Obtener artículo por ID
+      description: Obtiene los detalles de un artículo específico
+      produces:
+        - application/json
+      parameters:
+        - name: idArticulo
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Artículo encontrado
+        '404':
+          description: Artículo no encontrado
+    patch:
+      tags:
+        - Artículo
+      summary: Actualizar artículo
+      description: Actualiza los detalles de un artículo específico
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: idArticulo
+          in: path
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Datos del artículo a actualizar
+          required: true
+          schema:
+            type: object
+            properties:
+              titulo:
+                type: string
+              contenido:
+                type: string
+      responses:
+        '200':
+          description: Artículo actualizado exitosamente
+        '404':
+          description: Artículo no encontrado
+    delete:
+      tags:
+        - Artículo
+      summary: Eliminar artículo
+      description: Elimina un artículo específico
+      produces:
+        - application/json
+      parameters:
+        - name: idArticulo
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Artículo eliminado exitosamente
+        '404':
+          description: Artículo no encontrado
+  /articulos:
+    get:
+      tags:
+        - Artículo
+      summary: Listar artículos
+      description: Recupera una lista de artículos
+      produces:
+        - application/json
+      parameters:
+        - name: page
+          in: query
+          description: Número de páginas para la paginación
+          required: false
+          type: integer
+        - name: size
+          in: query
+          description: Tamaño de la página para la paginación
+          required: false
+          type: integer
+        - name: categoria
+          in: query
+          description: Filtrar por categoría
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Artículos listados exitosamente
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              articulos:
+                type: array
+                items:
+                  $ref: '#/definitions/Articulo'
+        '404':
+          description: No se encontraron artículos
+  /register:
+    post:
+      tags:
+        - Autenticación
+      summary: Registro de usuario
+      description: Permite registrar un nuevo usuario
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Datos del usuario a registrar
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              email:
+                type: string
+      responses:
+        '201':
+          description: Registro exitoso
+        '400':
+          description: Datos inválidos
+  /login:
+    post:
+      tags:
+        - Autenticación
+      summary: Autenticación de usuario
+      description: Permite a un usuario autenticarse en la aplicación
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Credenciales del usuario
           required: true
           schema:
             type: object
@@ -42,212 +202,135 @@ paths:
           description: Autenticación exitosa
         '401':
           description: Credenciales inválidas
-  /v1/register:
-    post:
+  /change-password:
+    put:
       tags:
-        - Cuenta
-      summary: Registro de usuario
-      description: Permite a un usuario registrarse en la aplicación.
+        - Autenticación
+      summary: Cambiar contraseña
+      description: Permite cambiar la contraseña del usuario
       consumes:
         - application/json
       produces:
         - application/json
       parameters:
         - in: body
-          name: Credenciales
-          description: Registrarse
+          name: body
+          description: Datos para cambiar la contraseña
+          required: true
+          schema:
+            type: object
+            properties:
+              oldPassword:
+                type: string
+              newPassword:
+                type: string
+      responses:
+        '200':
+          description: Contraseña cambiada exitosamente
+        '400':
+          description: Datos inválidos
+  /recover-password:
+    post:
+      tags:
+        - Autenticación
+      summary: Recuperar contraseña
+      description: Enviar correo de recuperación de contraseña
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Nombre de usuario para recuperar la contraseña
           required: true
           schema:
             type: object
             properties:
               username:
                 type: string
-              email:
-                type: string
-              password:
-                type: string
       responses:
         '200':
-          description: Registro exitoso
-        '401':
-          description: Datos inválidos
-  /v1/articulo:
-    post:
-      tags:
-        - Artículo
-      security:
-        - Bearer: []
-      summary: Crear un nuevo artículo
-      description: Permite la creación de un nuevo artículo.
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: articulo
-          description: Datos del nuevo articulo
-          required: true
-          schema:
-            type: object
-            properties:
-              titulo:
-                type: string
-              contenido:
-                type: string
-      responses:
-        '201':
-          description: Articulo creado exitosamente
+          description: Correo de recuperación enviado
         '400':
           description: Datos inválidos
-  /v1/articulo/{idArticulo}:
+  /users:
     get:
       tags:
-        - Artículo
-      security:
-        - Bearer: []
-      summary: Leer un artículo específico
-      description: Obtiene los detalles de un artículo específico.
+        - Autenticación
+      summary: Obtener todos los usuarios
+      description: Recupera una lista de todos los usuarios
       produces:
         - application/json
-      parameters:
-        - name: idArticulo
-          in: path
-          required: true
-          type: integer
       responses:
         '200':
-          description: Articulo encontrado
-        '404':
-          description: Articulo no encontrado
-    patch:
-      tags:
-        - Artículo
-      security:
-        - Bearer: []
-      summary: Editar un artículo existente
-      description: Permite editar un artículo existente.
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - name: idArticulo
-          in: path
-          required: true
-          type: integer
-        - in: body
-          name: articulo
-          required: true
+          description: Usuarios listados exitosamente
           schema:
-            type: object
-            properties:
-              titulo:
-                type: string
-              contenido:
-                type: string
-      responses:
-        '200':
-          description: Artículo actualizado exitosamente
+            type: array
+            items:
+              $ref: '#/definitions/User'
         '404':
-          description: Artículo no encontrada
+          description: No se encontraron usuarios
+  /user/{username}:
     delete:
       tags:
-        - Artículo
-      security:
-        - Bearer: []
-      summary: Eliminar un artículo
-      description: Permite la eliminación de un artículo.
+        - Autenticación
+      summary: Eliminar usuario
+      description: Elimina un usuario específico
       produces:
         - application/json
       parameters:
-        - name: idArticulo
+        - name: username
           in: path
           required: true
-          type: integer
+          type: string
       responses:
         '200':
-          description: Artículo eliminado exitosamente
+          description: Usuario eliminado exitosamente
         '404':
-          description: Artículo no encontrada
-  /v1/articulos:
-    get:
-      tags:
-        - Artículo
-      security:
-        - Bearer: []
-      summary: Listar todos los artículos
-      description: Recupera todos los articulos disponibles.
-      produces:
-        - application/json
-      parameters:
-        - name: page
-          in: query
-          description: Número de página para la paginación
-          required: false
-          type: integer
-        - name: size
-          in: query
-          description: Tamaño de la página para la paginación
-          required: false
-          type: integer
-      responses:
-        '200':
-          description: Articulos listados exitosamente
-          schema:
-            type: object
-            properties:
-              total:
-                type: integer
-                description: Total de artículos disponibles.
-              items:
-                type: array
-                items:
-                  $ref: '#/definitions/Articulo'
-        '404':
-          description: No se encontraron articulos
-  /v1/comentario:
+          description: Usuario no encontrado
+  /comentario:
     post:
       tags:
         - Comentario
-      security:
-        - Bearer: []
-      summary: Crear un nuevo comentario
-      description: Permite la creación de un nuevo comentario.
+      summary: Crear comentario
+      description: Crea un nuevo comentario
       consumes:
         - application/json
       produces:
         - application/json
       parameters:
         - in: body
-          name: articulo
-          description: contenido del comentario
+          name: body
+          description: Datos del comentario a crear
           required: true
           schema:
             type: object
             properties:
               contenido:
+                type: string
+              idArticulo:
+                type: string
+              username:
                 type: string
       responses:
         '201':
           description: Comentario creado exitosamente
         '400':
           description: Datos inválidos
-  /v1/comentario/{idComentario}:
+  /comentario/{idComentario}:
     get:
       tags:
         - Comentario
-      security:
-        - Bearer: []
-      summary: Leer un comentario específico
-      description: Obtiene los detalles de un comentario específico.
+      summary: Obtener comentario por ID
+      description: Obtiene los detalles de un comentario específico
       produces:
         - application/json
       parameters:
         - name: idComentario
           in: path
           required: true
-          type: integer
+          type: string
       responses:
         '200':
           description: Comentario encontrado
@@ -256,10 +339,8 @@ paths:
     patch:
       tags:
         - Comentario
-      security:
-        - Bearer: []
-      summary: Editar un comentario existente
-      description: Permite editar un comentario existente.
+      summary: Actualizar comentario
+      description: Actualiza los detalles de un comentario específico
       consumes:
         - application/json
       produces:
@@ -268,9 +349,10 @@ paths:
         - name: idComentario
           in: path
           required: true
-          type: integer
+          type: string
         - in: body
-          name: comentario
+          name: body
+          description: Datos del comentario a actualizar
           required: true
           schema:
             type: object
@@ -285,73 +367,74 @@ paths:
     delete:
       tags:
         - Comentario
-      security:
-        - Bearer: []
-      summary: Eliminar un comentario
-      description: Permite la eliminación de un comentario.
+      summary: Eliminar comentario
+      description: Elimina un comentario específico
       produces:
         - application/json
       parameters:
         - name: idComentario
           in: path
           required: true
-          type: integer
+          type: string
       responses:
         '200':
           description: Comentario eliminado exitosamente
         '404':
           description: Comentario no encontrado
-  /v1/comentarios:
+  /comentarios/{idArticulo}:
     get:
       tags:
         - Comentario
-      security:
-        - Bearer: []
-      summary: Listar todos los comentarios
-      description: Recupera todos los comentarios disponibles.
+      summary: Listar comentarios por artículo
+      description: Recupera una lista de comentarios para un artículo específico
       produces:
         - application/json
       parameters:
-        - name: page
-          in: query
-          description: Número de página para la paginación
-          required: false
-          type: integer
-        - name: size
-          in: query
-          description: Tamaño de la página para la paginación
-          required: false
-          type: integer
+        - name: idArticulo
+          in: path
+          required: true
+          type: string
       responses:
         '200':
           description: Comentarios listados exitosamente
           schema:
-            type: object
-            properties:
-              total:
-                type: integer
-                description: Total de comentarios disponibles.
-              items:
-                type: array
-                items:
-                  $ref: '#/definitions/Comentario'
+            type: array
+            items:
+              $ref: '#/definitions/Comentario'
         '404':
           description: No se encontraron comentarios
+
 definitions:
   Articulo:
     type: object
     properties:
       id:
-        type: integer
+        type: string
       titulo:
         type: string
       contenido:
         type: string
-
+      username:
+        type: string
+      categoria:
+        type: string
   Comentario:
     type: object
     properties:
       id:
-        type: integer
+        type: string
       contenido:
+        type: string
+      idArticulo:
+        type: string
+      username:
+        type: string
+  User:
+    type: object
+    properties:
+      username:
+        type: string
+      email:
+        type: string
+      role:
         type: string

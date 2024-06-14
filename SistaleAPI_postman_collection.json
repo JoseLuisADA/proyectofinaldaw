@@ -1,421 +1,506 @@
 {
 	"info": {
-		"_postman_id": "...",
-		"name": "Sistale API IA",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	  "name": "Sistale API",
+	  "description": "Colección de API para el proyecto",
+	  "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "Auth",
-			"item": [
-				{
-					"name": "Register",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"testpassword\",\n  \"email\": \"test@example.com\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/v1/register",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"register"
-							]
-						}
-					}
-				},
-				{
-					"name": "Login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"testpassword\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/v1/login",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"login"
-							]
-						}
-					}
-				},
-				{
-					"name": "Change Password",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"newPassword\": \"newtestpassword\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/v1/change-password",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"change-password"
-							]
-						}
-					}
-				},
-				{
-					"name": "Recover Password",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"username\": \"testuser\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/v1/recover-password",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"recover-password"
-							]
-						}
-					}
+	  {
+		"name": "Artículo",
+		"item": [
+		  {
+			"name": "Crear artículo",
+			"request": {
+			  "method": "POST",
+			  "header": [],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"titulo\": \"Titulo del artículo\",\n  \"contenido\": \"Contenido del artículo\",\n  \"username\": \"Usuario\",\n  \"categoria\": \"Categoría\"\n}",
+				"options": {
+				  "raw": {
+					"language": "json"
+				  }
 				}
-			]
-		},
-		{
-			"name": "Articulo",
-			"item": [
-				{
-					"name": "Create Articulo",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"titulo\": \"Test Articulo\",\n  \"contenido\": \"This is a test articulo.\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/v1/articulo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"articulo"
-							]
-						}
-					}
-				},
-				{
-					"name": "Get Articulo",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/v1/articulo/{{articuloId}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"articulo",
-								"{{articuloId}}"
-							]
-						}
-					}
-				},
-				{
-					"name": "Update Articulo",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"titulo\": \"Updated Test Articulo\",\n  \"contenido\": \"This is an updated test articulo.\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/v1/articulo/{{articuloId}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"articulo",
-								"{{articuloId}}"
-							]
-						}
-					}
-				},
-				{
-					"name": "Delete Articulo",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:3000/v1/articulo/{{articuloId}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"articulo",
-								"{{articuloId}}"
-							]
-						}
-					}
-				},
-				{
-					"name": "List Articulos",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/v1/articulos?page=1&size=10",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"articulos"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "size",
-									"value": "10"
-								}
-							]
-						}
-					}
+			  },
+			  "url": {
+				"raw": "http://localhost:3000/v1/articulo",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "articulo"
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Obtener artículo por ID",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "http://localhost:3000/v1/articulo/:idArticulo",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "articulo",
+				  ":idArticulo"
+				],
+				"variable": [
+				  {
+					"key": "idArticulo",
+					"value": "ID del artículo"
+				  }
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Actualizar artículo",
+			"request": {
+			  "method": "PATCH",
+			  "header": [],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"titulo\": \"Nuevo título\",\n  \"contenido\": \"Nuevo contenido\"\n}",
+				"options": {
+				  "raw": {
+					"language": "json"
+				  }
 				}
-			]
-		},
-		{
-			"name": "Comentario",
-			"item": [
-				{
-					"name": "Create Comentario",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"contenido\": \"This is a test comentario.\",\n  \"idArticulo\": \"{{articuloId}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/v1/comentario",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"comentario"
-							]
-						}
-					}
-				},
-				{
-					"name": "Get Comentario",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/v1/comentario/{{comentarioId}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"comentario",
-								"{{comentarioId}}"
-							]
-						}
-					}
-				},
-				{
-					"name": "Update Comentario",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"contenido\": \"This is an updated test comentario.\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/v1/comentario/{{comentarioId}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"comentario",
-								"{{comentarioId}}"
-							]
-						}
-					}
-				},
-				{
-					"name": "Delete Comentario",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:3000/v1/comentario/{{comentarioId}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"comentario",
-								"{{comentarioId}}"
-							]
-						}
-					}
-				},
-				{
-					"name": "List Comentarios",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/v1/comentarios/{{articuloId}}",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"v1",
-								"comentarios",
-								"{{articuloId}}"
-							]
-						}
-					}
+			  },
+			  "url": {
+				"raw": "http://localhost:3000/v1/articulo/:idArticulo",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "articulo",
+				  ":idArticulo"
+				],
+				"variable": [
+				  {
+					"key": "idArticulo",
+					"value": "ID del artículo"
+				  }
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Eliminar artículo",
+			"request": {
+			  "method": "DELETE",
+			  "header": [],
+			  "url": {
+				"raw": "http://localhost:3000/v1/articulo/:idArticulo",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "articulo",
+				  ":idArticulo"
+				],
+				"variable": [
+				  {
+					"key": "idArticulo",
+					"value": "ID del artículo"
+				  }
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Listar artículos",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "http://localhost:3000/v1/articulos?page=1&size=10&categoria=Categoría",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "articulos"
+				],
+				"query": [
+				  {
+					"key": "page",
+					"value": "1"
+				  },
+				  {
+					"key": "size",
+					"value": "10"
+				  },
+				  {
+					"key": "categoria",
+					"value": "Categoría"
+				  }
+				]
+			  }
+			}
+		  }
+		]
+	  },
+	  {
+		"name": "Autenticación",
+		"item": [
+		  {
+			"name": "Registro",
+			"request": {
+			  "method": "POST",
+			  "header": [],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"username\": \"Usuario\",\n  \"password\": \"Contraseña\",\n  \"email\": \"correo@ejemplo.com\"\n}",
+				"options": {
+				  "raw": {
+					"language": "json"
+				  }
 				}
-			]
-		}
+			  },
+			  "url": {
+				"raw": "http://localhost:3000/v1/register",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "register"
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Login",
+			"request": {
+			  "method": "POST",
+			  "header": [],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"username\": \"Usuario\",\n  \"password\": \"Contraseña\"\n}",
+				"options": {
+				  "raw": {
+					"language": "json"
+				  }
+				}
+			  },
+			  "url": {
+				"raw": "http://localhost:3000/v1/login",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "login"
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Cambiar contraseña",
+			"request": {
+			  "method": "PUT",
+			  "header": [],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"newPassword\": \"NuevaContraseña\",\n  \"oldPassword\": \"ContraseñaActual\"\n}",
+				"options": {
+				  "raw": {
+					"language": "json"
+				  }
+				}
+			  },
+			  "url": {
+				"raw": "http://localhost:3000/v1/change-password",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "change-password"
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Recuperar contraseña",
+			"request": {
+			  "method": "POST",
+			  "header": [],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"username\": \"Usuario\"\n}",
+				"options": {
+				  "raw": {
+					"language": "json"
+				  }
+				}
+			  },
+			  "url": {
+				"raw": "http://localhost:3000/v1/recover-password",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "recover-password"
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Obtener todos los usuarios",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "http://localhost:3000/v1/users",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "users"
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Eliminar usuario",
+			"request": {
+			  "method": "DELETE",
+			  "header": [],
+			  "url": {
+				"raw": "http://localhost:3000/v1/user/:username",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "user",
+				  ":username"
+				],
+				"variable": [
+				  {
+					"key": "username",
+					"value": "Nombre de usuario"
+				  }
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Actualizar rol de usuario",
+			"request": {
+			  "method": "PATCH",
+			  "header": [],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"newRole\": \"NuevoRol\"\n}",
+				"options": {
+				  "raw": {
+					"language": "json"
+				  }
+				}
+			  },
+			  "url": {
+				"raw": "http://localhost:3000/v1/:username/role",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  ":username",
+				  "role"
+				],
+				"variable": [
+				  {
+					"key": "username",
+					"value": "Nombre de usuario"
+				  }
+				]
+			  }
+			}
+		  }
+		]
+	  },
+	  {
+		"name": "Comentario",
+		"item": [
+		  {
+			"name": "Crear comentario",
+			"request": {
+			  "method": "POST",
+			  "header": [],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"contenido\": \"Contenido del comentario\",\n  \"idArticulo\": \"ID del artículo\",\n  \"username\": \"Usuario\"\n}",
+				"options": {
+				  "raw": {
+					"language": "json"
+				  }
+				}
+			  },
+			  "url": {
+				"raw": "http://localhost:3000/v1/comentario",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "comentario"
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Obtener comentario por ID",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "http://localhost:3000/v1/comentario/:idComentario",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "comentario",
+				  ":idComentario"
+				],
+				"variable": [
+				  {
+					"key": "idComentario",
+					"value": "ID del comentario"
+				  }
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Actualizar comentario",
+			"request": {
+			  "method": "PATCH",
+			  "header": [],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n  \"contenido\": \"Nuevo contenido\"\n}",
+				"options": {
+				  "raw": {
+					"language": "json"
+				  }
+				}
+			  },
+			  "url": {
+				"raw": "http://localhost:3000/v1/comentario/:idComentario",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "comentario",
+				  ":idComentario"
+				],
+				"variable": [
+				  {
+					"key": "idComentario",
+					"value": "ID del comentario"
+				  }
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Eliminar comentario",
+			"request": {
+			  "method": "DELETE",
+			  "header": [],
+			  "url": {
+				"raw": "http://localhost:3000/v1/comentario/:idComentario",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "comentario",
+				  ":idComentario"
+				],
+				"variable": [
+				  {
+					"key": "idComentario",
+					"value": "ID del comentario"
+				  }
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Listar comentarios por artículo",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "http://localhost:3000/v1/comentarios/:idArticulo",
+				"protocol": "http",
+				"host": [
+				  "localhost"
+				],
+				"port": "3000",
+				"path": [
+				  "v1",
+				  "comentarios",
+				  ":idArticulo"
+				],
+				"variable": [
+				  {
+					"key": "idArticulo",
+					"value": "ID del artículo"
+				  }
+				]
+			  }
+			}
+		  }
+		]
+	  }
 	]
-}
+  }
+  
