@@ -1,6 +1,7 @@
 {
 	"info": {
-	  "name": "Sistale API",
+	  "name": "Sistale Foro API",
+	  "_postman_id": "12345-67890-abcdef",
 	  "description": "Colección de API para el proyecto",
 	  "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,42 +13,57 @@
 			"name": "Crear artículo",
 			"request": {
 			  "method": "POST",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				},
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
 			  "body": {
 				"mode": "raw",
-				"raw": "{\n  \"titulo\": \"Titulo del artículo\",\n  \"contenido\": \"Contenido del artículo\",\n  \"username\": \"Usuario\",\n  \"categoria\": \"Categoría\"\n}",
-				"options": {
-				  "raw": {
-					"language": "json"
-				  }
-				}
+				"raw": "{\n    \"titulo\": \"\",\n    \"contenido\": \"\",\n    \"categoria\": \"\"\n}"
 			  },
 			  "url": {
-				"raw": "http://localhost:3000/v1/articulo",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/articulo",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "articulo"
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
 			"name": "Obtener artículo por ID",
 			"request": {
 			  "method": "GET",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				}
+			  ],
 			  "url": {
-				"raw": "http://localhost:3000/v1/articulo/:idArticulo",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/articulo/:idArticulo",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "articulo",
@@ -56,33 +72,41 @@
 				"variable": [
 				  {
 					"key": "idArticulo",
-					"value": "ID del artículo"
+					"value": ""
 				  }
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
 			"name": "Actualizar artículo",
 			"request": {
 			  "method": "PATCH",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				},
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
 			  "body": {
 				"mode": "raw",
-				"raw": "{\n  \"titulo\": \"Nuevo título\",\n  \"contenido\": \"Nuevo contenido\"\n}",
-				"options": {
-				  "raw": {
-					"language": "json"
-				  }
-				}
+				"raw": "{\n    \"titulo\": \"\",\n    \"contenido\": \"\"\n}"
 			  },
 			  "url": {
-				"raw": "http://localhost:3000/v1/articulo/:idArticulo",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/articulo/:idArticulo",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "articulo",
@@ -91,24 +115,32 @@
 				"variable": [
 				  {
 					"key": "idArticulo",
-					"value": "ID del artículo"
+					"value": ""
 				  }
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
 			"name": "Eliminar artículo",
 			"request": {
 			  "method": "DELETE",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				}
+			  ],
 			  "url": {
-				"raw": "http://localhost:3000/v1/articulo/:idArticulo",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/articulo/:idArticulo",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "articulo",
@@ -117,24 +149,32 @@
 				"variable": [
 				  {
 					"key": "idArticulo",
-					"value": "ID del artículo"
+					"value": ""
 				  }
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
 			"name": "Listar artículos",
 			"request": {
 			  "method": "GET",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				}
+			  ],
 			  "url": {
-				"raw": "http://localhost:3000/v1/articulos?page=1&size=10&categoria=Categoría",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/articulos?page={{page}}&size={{size}}&categoria={{categoria}}",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "articulos"
@@ -142,19 +182,20 @@
 				"query": [
 				  {
 					"key": "page",
-					"value": "1"
+					"value": "{{page}}"
 				  },
 				  {
 					"key": "size",
-					"value": "10"
+					"value": "{{size}}"
 				  },
 				  {
 					"key": "categoria",
-					"value": "Categoría"
+					"value": "{{categoria}}"
 				  }
 				]
 			  }
-			}
+			},
+			"response": []
 		  }
 		]
 	  },
@@ -162,148 +203,216 @@
 		"name": "Autenticación",
 		"item": [
 		  {
-			"name": "Registro",
+			"name": "Registro de usuario",
 			"request": {
 			  "method": "POST",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
 			  "body": {
 				"mode": "raw",
-				"raw": "{\n  \"username\": \"Usuario\",\n  \"password\": \"Contraseña\",\n  \"email\": \"correo@ejemplo.com\"\n}",
-				"options": {
-				  "raw": {
-					"language": "json"
-				  }
-				}
+				"raw": "{\n    \"username\": \"\",\n    \"password\": \"\",\n    \"email\": \"\"\n}"
 			  },
 			  "url": {
-				"raw": "http://localhost:3000/v1/register",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/register",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "register"
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
-			"name": "Login",
+			"name": "Autenticación de usuario",
 			"request": {
 			  "method": "POST",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
 			  "body": {
 				"mode": "raw",
-				"raw": "{\n  \"username\": \"Usuario\",\n  \"password\": \"Contraseña\"\n}",
-				"options": {
-				  "raw": {
-					"language": "json"
-				  }
-				}
+				"raw": "{\n    \"username\": \"\",\n    \"password\": \"\"\n}"
 			  },
 			  "url": {
-				"raw": "http://localhost:3000/v1/login",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/login",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "login"
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
 			"name": "Cambiar contraseña",
 			"request": {
 			  "method": "PUT",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				},
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
 			  "body": {
 				"mode": "raw",
-				"raw": "{\n  \"newPassword\": \"NuevaContraseña\",\n  \"oldPassword\": \"ContraseñaActual\"\n}",
-				"options": {
-				  "raw": {
-					"language": "json"
-				  }
-				}
+				"raw": "{\n    \"oldPassword\": \"\",\n    \"newPassword\": \"\"\n}"
 			  },
 			  "url": {
-				"raw": "http://localhost:3000/v1/change-password",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/change-password",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "change-password"
 				]
 			  }
-			}
+			},
+			"response": []
+		  },
+		  {
+			"name": "Cambiar contraseña con recuperación",
+			"request": {
+			  "method": "PUT",
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				},
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
+			  "body": {
+				"mode": "raw",
+				"raw": "{\n    \"newPassword\": \"\"\n}"
+			  },
+			  "url": {
+				"raw": "https://sistaleapi.onrender.com/v1/change-password-recovery",
+				"protocol": "https",
+				"host": [
+				  "sistaleapi",
+				  "onrender",
+				  "com"
+				],
+				"path": [
+				  "v1",
+				  "change-password-recovery"
+				]
+			  }
+			},
+			"response": []
 		  },
 		  {
 			"name": "Recuperar contraseña",
 			"request": {
 			  "method": "POST",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
 			  "body": {
 				"mode": "raw",
-				"raw": "{\n  \"username\": \"Usuario\"\n}",
-				"options": {
-				  "raw": {
-					"language": "json"
-				  }
-				}
+				"raw": "{\n    \"username\": \"\"\n}"
 			  },
 			  "url": {
-				"raw": "http://localhost:3000/v1/recover-password",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/recover-password",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "recover-password"
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
 			"name": "Obtener todos los usuarios",
 			"request": {
 			  "method": "GET",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				}
+			  ],
 			  "url": {
-				"raw": "http://localhost:3000/v1/users",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/users",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "users"
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
 			"name": "Eliminar usuario",
 			"request": {
 			  "method": "DELETE",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				}
+			  ],
 			  "url": {
-				"raw": "http://localhost:3000/v1/user/:username",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/user/:username",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "user",
@@ -312,33 +421,41 @@
 				"variable": [
 				  {
 					"key": "username",
-					"value": "Nombre de usuario"
+					"value": ""
 				  }
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
 			"name": "Actualizar rol de usuario",
 			"request": {
 			  "method": "PATCH",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				},
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
 			  "body": {
 				"mode": "raw",
-				"raw": "{\n  \"newRole\": \"NuevoRol\"\n}",
-				"options": {
-				  "raw": {
-					"language": "json"
-				  }
-				}
+				"raw": "{\n    \"newRole\": \"\"\n}"
 			  },
 			  "url": {
-				"raw": "http://localhost:3000/v1/:username/role",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/:username/role",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  ":username",
@@ -347,11 +464,12 @@
 				"variable": [
 				  {
 					"key": "username",
-					"value": "Nombre de usuario"
+					"value": ""
 				  }
 				]
 			  }
-			}
+			},
+			"response": []
 		  }
 		]
 	  },
@@ -362,42 +480,57 @@
 			"name": "Crear comentario",
 			"request": {
 			  "method": "POST",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				},
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
 			  "body": {
 				"mode": "raw",
-				"raw": "{\n  \"contenido\": \"Contenido del comentario\",\n  \"idArticulo\": \"ID del artículo\",\n  \"username\": \"Usuario\"\n}",
-				"options": {
-				  "raw": {
-					"language": "json"
-				  }
-				}
+				"raw": "{\n    \"idArticulo\": \"\",\n    \"contenido\": \"\"\n}"
 			  },
 			  "url": {
-				"raw": "http://localhost:3000/v1/comentario",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/comentario",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "comentario"
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
 			"name": "Obtener comentario por ID",
 			"request": {
 			  "method": "GET",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				}
+			  ],
 			  "url": {
-				"raw": "http://localhost:3000/v1/comentario/:idComentario",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/comentario/:idComentario",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "comentario",
@@ -406,33 +539,41 @@
 				"variable": [
 				  {
 					"key": "idComentario",
-					"value": "ID del comentario"
+					"value": ""
 				  }
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
 			"name": "Actualizar comentario",
 			"request": {
 			  "method": "PATCH",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				},
+				{
+				  "key": "Content-Type",
+				  "value": "application/json",
+				  "type": "text"
+				}
+			  ],
 			  "body": {
 				"mode": "raw",
-				"raw": "{\n  \"contenido\": \"Nuevo contenido\"\n}",
-				"options": {
-				  "raw": {
-					"language": "json"
-				  }
-				}
+				"raw": "{\n    \"contenido\": \"\"\n}"
 			  },
 			  "url": {
-				"raw": "http://localhost:3000/v1/comentario/:idComentario",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/comentario/:idComentario",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "comentario",
@@ -441,24 +582,32 @@
 				"variable": [
 				  {
 					"key": "idComentario",
-					"value": "ID del comentario"
+					"value": ""
 				  }
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
 			"name": "Eliminar comentario",
 			"request": {
 			  "method": "DELETE",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				}
+			  ],
 			  "url": {
-				"raw": "http://localhost:3000/v1/comentario/:idComentario",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/comentario/:idComentario",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "comentario",
@@ -467,24 +616,32 @@
 				"variable": [
 				  {
 					"key": "idComentario",
-					"value": "ID del comentario"
+					"value": ""
 				  }
 				]
 			  }
-			}
+			},
+			"response": []
 		  },
 		  {
 			"name": "Listar comentarios por artículo",
 			"request": {
 			  "method": "GET",
-			  "header": [],
+			  "header": [
+				{
+				  "key": "Authorization",
+				  "value": "Bearer {{token}}",
+				  "type": "text"
+				}
+			  ],
 			  "url": {
-				"raw": "http://localhost:3000/v1/comentarios/:idArticulo",
-				"protocol": "http",
+				"raw": "https://sistaleapi.onrender.com/v1/comentarios/:idArticulo",
+				"protocol": "https",
 				"host": [
-				  "localhost"
+				  "sistaleapi",
+				  "onrender",
+				  "com"
 				],
-				"port": "3000",
 				"path": [
 				  "v1",
 				  "comentarios",
@@ -493,11 +650,12 @@
 				"variable": [
 				  {
 					"key": "idArticulo",
-					"value": "ID del artículo"
+					"value": ""
 				  }
 				]
 			  }
-			}
+			},
+			"response": []
 		  }
 		]
 	  }
